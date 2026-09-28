@@ -6,8 +6,8 @@
 - premailer 把 <style> 里的规则全部 inline 进每个元素的 style=""
   → 公众号后台粘贴时不会被剥样式（公众号会 strip <style> 和 class，只认 inline style）
 
-用法：
-  "/Users/liuyuxin/Documents/Vibe Coding项目/PPT制作练习/ppt-master/.venv/bin/python" gen_html.py
+用法(依赖 markdown+premailer,首次:pip3 install markdown premailer;遇 externally-managed 用 venv,见仓库 README):
+  python3 gen_html.py
 """
 import re
 from pathlib import Path

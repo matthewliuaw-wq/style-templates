@@ -15,13 +15,15 @@ scan.py —— 「文件夹知识库」可视化页面的数据生产线。
 """
 
 import json
+import os
 import re
 import sys
 from datetime import date
 from pathlib import Path
 
 PAGE = Path(__file__).resolve().parent.parent / "index.html"
-KB = Path("/Users/liuyuxin/Documents/网页文章")
+# 个人文章库根目录:默认 ~/Documents/网页文章,他人复用时用环境变量 KB_DIR 指向自己的库
+KB = Path(os.environ.get("KB_DIR", "~/Documents/网页文章")).expanduser()
 
 # ---------------------------------------------------------------- 策展层 ----
 # 六层关系的语义策展（人的判断）。dir 是知识库里的文件夹名；
