@@ -8,8 +8,8 @@ zine 版 → 公众号 HTML 版(inline 样式,可直接贴后台)
   3. 全量等比缩放:所有 Npx 值 × 0.627(字号/间距/边框/阴影同步缩)
   4. premailer 全量内联进元素 style=""
 
-用法(必须用 ppt-master venv python):
-  "/Users/liuyuxin/Documents/Vibe Coding项目/PPT制作练习/ppt-master/.venv/bin/python" gen_zine_wechat.py
+用法(依赖 premailer,首次:pip3 install premailer;遇 externally-managed 用 venv,见仓库 README):
+  python3 gen_zine_wechat.py
 """
 import re
 from pathlib import Path

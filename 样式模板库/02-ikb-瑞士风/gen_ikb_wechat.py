@@ -10,8 +10,8 @@
      ——伪元素(::before/::after)与 @media 无法内联,残留在 <style> 里,
        公众号会剥掉(等于丢装饰,无伤结构);本地预览仍可见
 
-用法(必须用 ppt-master venv python,premailer 只装在那):
-  "/Users/liuyuxin/Documents/Vibe Coding项目/PPT制作练习/ppt-master/.venv/bin/python" gen_ikb_wechat.py
+用法(依赖 premailer,首次:pip3 install premailer;遇 externally-managed 用 venv,见仓库 README):
+  python3 gen_ikb_wechat.py
 """
 import re
 from pathlib import Path
