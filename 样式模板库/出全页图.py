@@ -25,6 +25,8 @@ _CHROME_CANDIDATES = [
     "/usr/bin/google-chrome",
     "/usr/bin/chromium-browser",
     "/usr/bin/chromium",
+    "C:/Program Files/Google/Chrome/Application/chrome.exe",
+    "C:/Program Files (x86)/Google/Chrome/Application/chrome.exe",
 ]
 CHROME = next((c for c in _CHROME_CANDIDATES if Path(c).exists()), None) \
     or shutil.which("google-chrome") or shutil.which("chrome") or shutil.which("chromium")

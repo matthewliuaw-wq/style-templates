@@ -1,13 +1,13 @@
 # style-templates · 公众号内容样式库
 
 五套可直接填充的公众号视觉样式 + 一套导读文章写作模板 + 全部渲染工具链。
-**给 AI 用法和给人用法写在同一页:指令全部可复制粘贴,交给 Claude Code 执行即可。**
+**给 AI 用法和给人用法写在同一页:指令全部可复制粘贴,交给编程 agent(Claude Code / Codex 等)执行即可。**
 
 ---
 
-## 一句话起步
+## 快速接入(三选一)
 
-把下面这句贴给你的 Claude Code(地址换成你的克隆位置):
+**方式 1 · 一句话起步(任意 agent)**——把这句贴给你的编程 agent(Claude Code / Codex 都行):
 
 ```
 帮我 clone https://github.com/matthewliuaw-wq/style-templates 到 ~/Documents,
@@ -15,6 +15,16 @@
 ```
 
 Agent 会按本 README 自动:装依赖 → 按决策表选样式(培训总结 → 02 IKB)→ 复制模板 → 引导你给内容 → 渲染出成品。
+
+**方式 2 · 装成 Claude Code Skill(说人话即触发)**:
+
+```bash
+git clone https://github.com/matthewliuaw-wq/style-templates ~/.claude/skills/style-templates
+```
+
+装完开新会话,直接说"帮我做一篇培训总结",agent 按根目录 `SKILL.md` 的流程走;以后 `git -C ~/.claude/skills/style-templates pull` 即更新。
+
+**方式 3 · Codex**:同方式 1 clone 后在仓库目录里干活,`AGENTS.md` 自动加载。注意 Codex 沙箱(workspace-write)默认禁网,首次 `pip3 install` 会请求联网放行,批准即可,或启动时带 `-c 'sandbox_workspace_write.network_access=true'`。
 
 ## 环境自检(agent 首次使用先跑)
 
@@ -77,7 +87,9 @@ python3 -m venv .venv && .venv/bin/pip install Pillow markdown premailer
 
 ```
 style-templates/
-├── README.md                 ← 本页
+├── README.md                 ← 本页(完整手册)
+├── SKILL.md                  ← Skill 精简入口(装成 Claude Code Skill 时被识别)
+├── CLAUDE.md / AGENTS.md     ← agent 进仓库自动加载的入口(Claude Code / Codex)
 └── 样式模板库/
     ├── 样式图册.md            ← 选型总览 + 验证记录(改样式先读它)
     ├── 文章导读模板包.md       ← 模式 A 的内容结构模板(RG-1~5 + 镜像四模块)
