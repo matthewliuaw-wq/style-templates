@@ -16,8 +16,8 @@ from pathlib import Path
 from premailer import transform
 
 ROOT = Path(__file__).resolve().parent
-SRC = ROOT / "研修班回顾-zine版.html"
-OUT = ROOT / "研修班回顾-zine版-公众号版.html"
+SRC = ROOT / "模板示例.html"          # 换主题时改这里(或拷本脚本到文章目录)
+OUT = ROOT / "模板示例-公众号版.html"
 SCALE = 677 / 1080  # ≈ 0.627
 
 

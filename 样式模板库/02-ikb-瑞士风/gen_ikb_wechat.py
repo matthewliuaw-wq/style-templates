@@ -18,9 +18,9 @@ from pathlib import Path
 from premailer import transform
 
 ROOT = Path(__file__).resolve().parent
-SRC_HTML = ROOT / "real-program-details-ikb.html"   # 网页版源
+SRC_HTML = ROOT / "模板示例.html"                  # 网页版源(换主题时改这里)
 SRC_CSS = ROOT / "assets/program-ikb.css"            # 对应样式
-OUT = ROOT / "real-program-details-ikb-公众号版.html" # 公众号版产物
+OUT = ROOT / "模板示例-公众号版.html"                # 公众号版产物
 
 
 def expand_vars(css: str) -> str:
