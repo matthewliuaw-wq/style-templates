@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>两日总结 · 一条内容生产线（长图版）</title>
+<style>
+  :root{
+    --paper:#F5EFE0;
+    --navy:#1E4DBC;
+    --brick:#C8553D;
+    --ink:#1A1A1A;
+    --ink-soft:rgba(26,26,26,.55);
+    --rule:rgba(26,26,26,.25);
+  }
+  *{margin:0;padding:0;box-sizing:border-box;border-radius:0!important;}
+  html,body{width:1080px;background-color:var(--paper);}
+  body{
+    font-family:'PingFang SC','Microsoft YaHei','Hiragino Sans GB',sans-serif;
+    color:var(--ink);
+    background-image:radial-gradient(rgba(26,26,26,.055) 1px,transparent 1.4px);
+    background-size:9px 9px;
+    overflow-x:hidden;
+  }
+  img{display:block;}
+
+  /* ---------- zine 基础装置 ---------- */
+  .mono{font-family:'Courier New','Menlo',monospace;letter-spacing:.14em;}
+  .display{font-family:'Arial Black','PingFang SC','Microsoft YaHei',sans-serif;font-weight:900;}
+  .misreg-navy{color:var(--navy);text-shadow:5px 4px 0 rgba(200,85,61,.82);}
+  .misreg-brick{color:var(--brick);text-shadow:5px 4px 0 rgba(30,77,188,.75);}
+
+  /* 色层错位硬块（非投影：实色、无模糊） */
+  .plate{position:relative;isolation:isolate;background:var(--paper);border:3px solid var(--ink);}
+  .plate::before{content:'';position:absolute;left:0;top:0;width:100%;height:100%;
+    transform:translate(8px,8px);z-index:-1;}
+  .plate-navy::before{background:var(--navy);}
+  .plate-brick::before{background:var(--brick);}
+
+  .dots{background-image:radial-gradient(rgba(26,26,26,.16) 1.1px,transparent 1.5px);
+    background-size:7px 7px;}
+
+  /* 专色 duotone：墨层为底，灰度图 screen，纸色 multiply 收尾 */
+  .duo{position:relative;isolation:isolate;overflow:hidden;border:3px solid var(--ink);background:var(--paper);}
+  .duo img{width:100%;height:100%;object-fit:cover;
+    filter:contrast(1.06) saturate(1.05);}
+  .duo::after{display:none;}
+  .duo-brick{background:var(--paper);}
+
+  /* 屏与分割 */
+  section{position:relative;padding:88px 72px 96px;}
+  .cut{border-top:3px dashed var(--rule);position:relative;height:0;}
+  .cut span{position:absolute;left:72px;top:-21px;background:var(--paper);padding:0 14px;
+    font-size:24px;color:var(--ink-soft);}
+  .folio{display:flex;justify-content:space-between;align-items:baseline;
+    font-size:25px;color:var(--ink-soft);margin-bottom:54px;}
+  .folio b{color:var(--ink);font-size:28px;}
+
+  .act-tag{display:inline-block;background:var(--navy);color:var(--paper);
+    padding:10px 26px;font-size:30px;letter-spacing:.3em;margin-bottom:26px;}
+  .act-tag.brick{background:var(--brick);}
+  h2.act-head{font-size:76px;line-height:1.18;letter-spacing:.01em;margin-bottom:34px;}
+  p.body{font-size:31px;line-height:1.72;}
+  .body b,.ask-note b,.end-quote b{font-weight:700;
+    text-decoration:underline;text-decoration-color:rgba(200,85,61,.6);
+    text-decoration-thickness:7px;text-underline-offset:11px;}
+  .caption{font-size:24px;color:var(--ink-soft);margin-top:18px;letter-spacing:.1em;}
+
+  .chip{display:inline-block;border:2.5px solid var(--ink);padding:8px 20px;
+    font-size:27px;margin:0 12px 14px 0;background:var(--paper);}
+
+  /* ---------- 封面 ---------- */
+  .cover{padding:64px 72px 88px;}
+  .cover-mast{display:flex;justify-content:space-between;font-size:25px;
+    color:var(--ink);border-bottom:3px solid var(--ink);padding-bottom:18px;}
+  .cover-block{margin-top:92px;position:relative;}
+  .cover-flow{font-size:66px;line-height:1.42;letter-spacing:.02em;}
+  .cover-line{margin-top:34px;font-size:76px;line-height:1.22;letter-spacing:0;}
+  .cover-sub{margin-top:44px;font-size:31px;color:var(--ink);letter-spacing:.22em;
+    border-left:12px solid var(--brick);padding-left:26px;}
+  .nums{margin-top:80px;border-top:3px solid var(--ink);border-bottom:3px solid var(--ink);}
+  .nums .row{display:flex;align-items:baseline;gap:36px;padding:26px 0;}
+  .nums .row+.row{border-top:3px solid var(--ink);}
+  .nums .n{font-size:150px;line-height:1;letter-spacing:-.02em;white-space:nowrap;}
+  .nums .l{font-size:33px;letter-spacing:.3em;}
+  .nums .en{margin-left:auto;font-size:24px;color:var(--ink-soft);letter-spacing:.2em;}
+  .cover-foot{margin-top:60px;display:flex;justify-content:space-between;
+    font-size:23px;letter-spacing:.08em;color:var(--ink-soft);}
+  .cover-seal{position:absolute;right:6px;top:-34px;width:190px;height:190px;
+    border:3px solid var(--brick);transform:rotate(6deg);display:flex;
+    align-items:center;justify-content:center;text-align:center;
+    font-size:33px;line-height:1.4;color:var(--brick);letter-spacing:.2em;
+    font-weight:900;}
+
+  /* ---------- 设问屏 ---------- */
+  .ask-356{font-size:330px;line-height:.95;letter-spacing:-.03em;margin:30px 0 8px;}
+  .ask-q{font-size:58px;line-height:1.5;margin-top:36px;}
+  .ask-a{display:inline-block;margin-top:52px;background:var(--brick);color:var(--paper);
+    font-size:52px;padding:20px 36px;letter-spacing:.14em;font-weight:900;}
+  .ask-note{margin-top:64px;font-size:31px;line-height:1.8;}
+
+  /* ---------- 幕内图文 ---------- */
+  .grid2{display:flex;gap:44px;}
+  .grid2>div{flex:1;min-width:0;}
+  .fig-label{font-size:25px;letter-spacing:.16em;color:var(--ink);
+    border-top:3px solid var(--ink);padding-top:14px;margin-top:16px;
+    display:flex;justify-content:space-between;}
+  .arrow-mid{flex:0 0 76px;display:flex;align-items:center;justify-content:center;
+    font-size:52px;color:var(--brick);font-weight:900;}
+
+  .steps{margin-top:10px;}
+  .steps>div{display:flex;align-items:flex-start;gap:26px;margin-bottom:30px;}
+  .steps .no{flex:0 0 74px;height:74px;border:3px solid var(--ink);
+    display:flex;align-items:center;justify-content:center;
+    font-size:40px;font-weight:900;}
+  .steps h3{font-size:37px;margin-bottom:8px;}
+  .steps p{font-size:29px;line-height:1.6;color:var(--ink);}
+
+  .formula{margin-top:56px;padding:52px 44px;text-align:center;}
+  .formula .f{font-size:54px;line-height:1.45;letter-spacing:.01em;}
+  .formula .dims{margin-top:34px;}
+  .formula .dims span{display:inline-block;border:2.5px solid var(--ink);
+    padding:10px 24px;font-size:29px;margin:0 14px 16px 0;}
+  .formula p{margin-top:20px;font-size:29px;line-height:1.7;text-align:left;}
+
+  .wall{display:grid;grid-template-columns:repeat(4,1fr);gap:26px;}
+  .wall .cell .duo{height:176px;}
+  .wall .cell:last-child .duo{height:176px;}
+  .wall-cap{font-size:24px;margin-top:12px;letter-spacing:.06em;line-height:1.4;}
+
+  table.idx{width:100%;border-collapse:collapse;margin-top:40px;}
+  table.idx th{background:var(--ink);color:var(--paper);font-size:27px;
+    padding:16px 18px;text-align:left;letter-spacing:.1em;font-weight:700;}
+  table.idx td{border:2.5px solid var(--ink);font-size:26px;padding:15px 18px;
+    line-height:1.45;vertical-align:top;background:var(--paper);}
+  table.idx td.c{text-align:center;white-space:nowrap;font-family:'Courier New','Menlo',monospace;}
+  table.idx tr td:first-child{font-weight:700;}
+
+  .end-line{font-size:64px;line-height:1.5;}
+  .end-quote{margin-top:46px;font-size:31px;line-height:1.8;}
+  .end-foot{margin-top:64px;border-top:3px solid var(--ink);padding-top:26px;
+    display:flex;justify-content:space-between;font-size:25px;color:var(--ink);}
+</style>
+</head>
+<body>
+
+<!-- ═══════════ P.01 封面 ═══════════ -->
+<section class="cover">
+  <div class="cover-mast mono">
+    <span>两日总结 · 一条内容生产线</span>
+    <span>ISSUE №01 · 2026.09.19–20</span>
+  </div>
+
+  <div class="cover-block">
+    <div class="cover-seal dots">两天<br>一条线</div>
+    <div class="cover-flow display">
+      <span class="misreg-navy">素材</span> → 知识 →<br>
+      方法 → 产品 → 课程
+    </div>
+    <div class="cover-line display misreg-brick">一条跑通了的内容生产线。</div>
+    <div class="cover-sub">采集 · 沉淀 · 方法 · 生产 · 教学化</div>
+  </div>
+
+  <div class="nums">
+    <div class="row">
+      <div class="n display" style="color:var(--navy)">356</div>
+      <div class="l">篇文章</div>
+      <div class="en mono">ARTICLES</div>
+    </div>
+    <div class="row">
+      <div class="n display" style="color:var(--brick)">1,956</div>
+      <div class="l">张图</div>
+      <div class="en mono">IMAGES</div>
+    </div>
+    <div class="row">
+      <div class="n display" style="color:var(--ink)">113</div>
+      <div class="l">段视频</div>
+      <div class="en mono">VIDEOS</div>
+    </div>
+  </div>
+
+  <div class="cover-foot mono">
+    <span>都来自一个本地文件夹</span>
+    <span>RISO NAVY + BRICK · ON CREAM PAPER</span>
+  </div>
+</section>
+
+<div class="cut"><span class="mono">✂ ─ ─ ─ P.02 设问 ─ ─ ─</span></div>
+
+<!-- ═══════════ P.02 设问 ═══════════ -->
+<section>
+  <div class="folio mono"><span><b>设问</b> · THE QUESTION</span><span>P.02 / 09</span></div>
+
+  <div class="ask-356 display misreg-navy">356</div>
+  <div class="ask-q display">「这 356 篇文章是哪来的？」</div>
+  <div class="ask-a">两天前，它们还不存在。</div>
+
+  <div class="ask-note">
+    这是一张地铁图，每个站点是一篇文章；全图 356 篇、1,956 张图、113 段视频——
+    <b>都来自一个本地文件夹。</b>
+  </div>
+</section>
+
+<div class="cut"><span class="mono">✂ ─ ─ ─ P.03 第一幕 ─ ─ ─</span></div>
+
+<!-- ═══════════ P.03 第一幕 采集 ═══════════ -->
+<section>
+  <div class="folio mono"><span><b>ACT 1</b> · 采集</span><span>P.03 / 09</span></div>
+
+  <div class="act-tag">第 一 幕 · 采 集</div>
+  <h2 class="act-head display misreg-navy">让 Claude 自己<br>开浏览器去抓</h2>
+
+  <p class="body">
+    登录墙、反爬源，普通工具抓不到；Playwright MCP 让 Claude 自己开浏览器
+    <b>看页面、点按钮</b>；经验沉淀成 web-article-saver skill，图文视频全量存档，
+    两个校验脚本把关后才算完成。
+  </p>
+
+  <div class="plate plate-navy" style="margin-top:52px;">
+    <div class="duo" style="height:640px;">
+      <img src="playwright-mcp-长图.png" style="object-position:50% 6%;" alt="Playwright MCP 全页长图">
+    </div>
+  </div>
+  <div class="fig-label mono"><span>PLAYWRIGHT MCP · 登录墙页面全页长图</span><span>图 1-1</span></div>
+
+  <div style="margin-top:36px;">
+    <span class="chip">开浏览器</span><span class="chip">看页面</span><span class="chip">点按钮</span>
+    <span class="chip">沉淀成 skill</span><span class="chip">两道校验把关</span>
+  </div>
+</section>
+
+<div class="cut"><span class="mono">✂ ─ ─ ─ P.04 第二幕 ─ ─ ─</span></div>
+
+<!-- ═══════════ P.04 第二幕 沉淀 ═══════════ -->
+<section>
+  <div class="folio mono"><span><b>ACT 2</b> · 沉淀</span><span>P.04 / 09</span></div>
+
+  <div class="act-tag brick">第 二 幕 · 沉 淀</div>
+  <h2 class="act-head display misreg-brick">知识库变成<br>一座可逛的城</h2>
+
+  <p class="body">
+    素材堆在文件夹里没有价值，可视化让它能<b>「逛」</b>；数字不是手写的，
+    <b>build/scan.py 扫文件夹自动注入</b>——素材变了重跑一次，页面自己更新。
+    这个页面本身，就是下一幕要讲的方法做出来的。
+  </p>
+
+  <div class="plate plate-brick" style="margin-top:52px;">
+    <div class="duo" style="height:560px;">
+      <img src="展示素材/知识之城_首屏截图.png" alt="知识之城地铁图">
+    </div>
+  </div>
+  <div class="fig-label mono"><span>知识之城 · 每个站点是一篇文章</span><span>图 2-1</span></div>
+
+  <div class="formula plate plate-navy dots" style="margin-top:44px;">
+    <div class="f display">素材文件夹 → scan.py → <span style="color:var(--navy)">地铁图自动更新</span></div>
+    <p style="text-align:center;margin-top:16px;">母版固定、数据自动注入——页面也是生产线生产出来的。</p>
+  </div>
+</section>
+
+<div class="cut"><span class="mono">✂ ─ ─ ─ P.05 第三幕 ─ ─ ─</span></div>
+
+<!-- ═══════════ P.05 第三幕 方法 ═══════════ -->
+<section>
+  <div class="folio mono"><span><b>ACT 3</b> · 方法</span><span>P.05 / 09</span></div>
+
+  <div class="act-tag">第 三 幕 · 方 法</div>
+  <h2 class="act-head display misreg-navy">提示词，只有三条路</h2>
+
+  <div class="steps">
+    <div>
+      <div class="no display" style="color:var(--navy)">1</div>
+      <div><h3 class="display">自己写，反复试</h3>
+      <p>一次只改一处，改一处看一次。</p></div>
+    </div>
+    <div>
+      <div class="no display" style="color:var(--brick)">2</div>
+      <div><h3 class="display">照模板改</h3>
+      <p>先拆「固定的一半 / 要换的一半」，再照着换。</p></div>
+    </div>
+    <div>
+      <div class="no display" style="color:var(--ink)">3</div>
+      <div><h3 class="display">从成品反推</h3>
+      <p>反推稿与真范本的差距，就是新知。</p></div>
+    </div>
+  </div>
+
+  <p class="body" style="margin-top:14px;">
+    三条路连着走：<b>反推学写法 → 攒成模板 → 以后照着改。</b>
+  </p>
+
+  <div class="grid2" style="margin-top:52px;">
+    <div>
+      <div class="plate plate-brick">
+        <div class="duo duo-brick" style="height:560px;">
+          <img src="02-北京样例海报.jpg" alt="北京样例海报">
+        </div>
+      </div>
+      <div class="fig-label mono"><span>样例海报 · 反推素材</span><span>图 3-1</span></div>
+    </div>
+    <div class="arrow-mid display">→</div>
+    <div>
+      <div class="plate plate-navy">
+        <div class="duo" style="height:560px;">
+          <img src="北京大学海报.jpg" alt="北京大学海报">
+        </div>
+      </div>
+      <div class="fig-label mono"><span>北京大学 · 换要素生成</span><span>图 3-2</span></div>
+    </div>
+  </div>
+
+  <div class="formula plate plate-navy dots">
+    <div class="f display">从成品反推 city DNA → 换城市要素 → <span style="color:var(--navy)">一张新海报</span></div>
+  </div>
+</section>
+
+<div class="cut"><span class="mono">✂ ─ ─ ─ P.06 第四幕 ─ ─ ─</span></div>
+
+<!-- ═══════════ P.06 第四幕 生产 · 图 ═══════════ -->
+<section>
+  <div class="folio mono"><span><b>ACT 4A</b> · 生产 · 图</span><span>P.06 / 09</span></div>
+
+  <div class="act-tag brick">第 四 幕 · 生 产（图）</div>
+  <h2 class="act-head display misreg-brick">一次只指一处，<br>两次迭代见分晓</h2>
+
+  <div class="grid2" style="margin-top:26px;">
+    <div>
+      <div class="plate plate-navy">
+        <div class="duo" style="height:700px;">
+          <img src="vibe-coding-poster.jpg" alt="氛围编程海报 v1">
+        </div>
+      </div>
+      <div class="fig-label mono"><span>V1 · 第一版</span><span>图 4-1</span></div>
+    </div>
+    <div class="arrow-mid display">→</div>
+    <div>
+      <div class="plate plate-brick">
+        <div class="duo duo-brick" style="height:700px;">
+          <img src="vibe-coding-poster-v2.jpg" alt="氛围编程海报 v2">
+        </div>
+      </div>
+      <div class="fig-label mono"><span>V2 · 构图、留白、字距各进一步</span><span>图 4-2</span></div>
+    </div>
+  </div>
+
+  <div class="formula plate plate-brick dots" style="margin-top:56px;">
+    <div class="f display">50 张 = <span style="color:var(--navy)">固定框架</span> × 五维变量</div>
+    <div class="dims">
+      <span>汉字</span><span>载体</span><span>配色</span><span>结构</span><span>文案</span>
+    </div>
+    <p>50 张不是 50 次灵感，是固定框架乘五维变量的排列——
+    生产线思维从「一张海报」升级到「一个系列」。</p>
+  </div>
+</section>
+
+<div class="cut"><span class="mono">✂ ─ ─ ─ P.07 第四幕 ─ ─ ─</span></div>
+
+<!-- ═══════════ P.07 第四幕 生产 · 视频 ═══════════ -->
+<section>
+  <div class="folio mono"><span><b>ACT 4B</b> · 生产 · 视频</span><span>P.07 / 09</span></div>
+
+  <div class="act-tag">第 四 幕 · 生 产（视频）</div>
+  <h2 class="act-head display misreg-navy">视频同套路，<br>产能不受灵感限制</h2>
+
+  <p class="body">
+    百部短视频方案已列好——<b>固定框架，逐项代入</b>，视频与海报走同一条生产线。
+  </p>
+
+  <div class="wall" style="margin-top:48px;">
+    <div class="cell">
+      <div class="duo duo-brick"><img src="展示素材/视频封面帧/V-新1_代码汤.jpg" alt="代码汤"></div>
+      <div class="wall-cap mono">代码汤</div>
+    </div>
+    <div class="cell">
+      <div class="duo"><img src="展示素材/视频封面帧/V-新2_知识之城成网.jpg" alt="知识之城成网"></div>
+      <div class="wall-cap mono">知识之城成网</div>
+    </div>
+    <div class="cell">
+      <div class="duo duo-brick"><img src="展示素材/视频封面帧/V01-04_海边冲浪日出.jpg" alt="海边冲浪日出"></div>
+      <div class="wall-cap mono">海边冲浪日出</div>
+    </div>
+    <div class="cell">
+      <div class="duo"><img src="展示素材/视频封面帧/V02-02_京都古寺红叶.jpg" alt="京都古寺红叶"></div>
+      <div class="wall-cap mono">京都古寺红叶</div>
+    </div>
+    <div class="cell">
+      <div class="duo"><img src="展示素材/视频封面帧/V05-03_图书馆书塔倒塌.jpg" alt="图书馆书塔倒塌"></div>
+      <div class="wall-cap mono">图书馆书塔倒塌</div>
+    </div>
+    <div class="cell">
+      <div class="duo duo-brick"><img src="展示素材/视频封面帧/V09-07_敦煌飞天壁画风.jpg" alt="敦煌飞天壁画风"></div>
+      <div class="wall-cap mono">敦煌飞天壁画风</div>
+    </div>
+    <div class="cell">
+      <div class="duo"><img src="展示素材/视频封面帧/V10-02_火车窗四季更迭.jpg" alt="火车窗四季更迭"></div>
+      <div class="wall-cap mono">火车窗四季更迭</div>
+    </div>
+    <div class="cell" style="display:flex;align-items:center;justify-content:center;
+      border:3px solid var(--ink);background:var(--navy);">
+      <div class="mono" style="color:var(--paper);font-size:26px;text-align:center;line-height:1.6;">
+        百部方案<br>已列好<br>···</div>
+    </div>
+  </div>
+  <div class="fig-label mono"><span>视频封面墙 · 长图内一律用封面帧</span><span>图 4-3</span></div>
+</section>
+
+<div class="cut"><span class="mono">✂ ─ ─ ─ P.08 第五幕 ─ ─ ─</span></div>
+
+<!-- ═══════════ P.08 第五幕 教学化 ═══════════ -->
+<section>
+  <div class="folio mono"><span><b>ACT 5</b> · 教学化</span><span>P.08 / 09</span></div>
+
+  <div class="act-tag brick">第 五 幕 · 教 学 化</div>
+  <h2 class="act-head display misreg-brick">生产线，<br>装进任务书</h2>
+
+  <p class="body">
+    生产线最终装进课程：任务书（学员版带水印）+ <b>五件配套材料</b>，
+    学员拿到即开工；教师版材料单独存放。这两天所有产出，
+    最后都变成了<b>可以交给别人的东西</b>。
+  </p>
+
+  <div class="plate plate-navy" style="margin-top:52px;">
+    <div class="duo" style="height:540px;">
+      <img src="展示素材/任务书_首页截图.png" alt="任务书首页">
+    </div>
+  </div>
+  <div class="fig-label mono"><span>任务书_图片生产线.pdf · 学员版</span><span>图 5-1</span></div>
+
+  <div style="margin-top:40px;">
+    <span class="chip">任务书</span><span class="chip">五件配套</span><span class="chip">学员拿到即开工</span>
+    <span class="chip">教师版单独存放</span>
+  </div>
+</section>
+
+<div class="cut"><span class="mono">✂ ─ ─ ─ P.09 收尾 ─ ─ ─</span></div>
+
+<!-- ═══════════ P.09 收尾 ═══════════ -->
+<section>
+  <div class="folio mono"><span><b>收尾</b> · THE METHOD</span><span>P.09 / 09</span></div>
+
+  <div class="end-line display misreg-navy">提示词不是天赋，<br>是可拆解、可复制、<br>可教的方法。</div>
+
+  <div class="end-quote">
+    两天，一条线：采集、沉淀、方法、生产、教学化。<br>
+    提示词不是天赋，是方法——<b>方法可以教，生产线可以复制。</b>
+  </div>
+
+  <div class="mono" style="margin-top:72px;font-size:27px;letter-spacing:.3em;
+    border-left:12px solid var(--navy);padding-left:24px;">
+    两 日 全 部 产 出 · 九 种 形 态</div>
+
+  <table class="idx">
+    <tr><th>形态</th><th style="text-align:center;">件数</th><th>代表文件</th></tr>
+    <tr><td>Markdown 方法卡 · 规划</td><td class="c">12</td><td>展示方案、50 张规划、提示词三条路</td></tr>
+    <tr><td>HTML 交互页面</td><td class="c">5</td><td>知识之城地铁图、模板画廊</td></tr>
+    <tr><td>静态图片 JPG · PNG</td><td class="c">15+</td><td>海报 v1/v2、悟字海报、封面帧×7</td></tr>
+    <tr><td>SVG 矢量长图</td><td class="c">1</td><td>Playwright MCP 长图（墨织风）</td></tr>
+    <tr><td>MP4 视频</td><td class="c">10</td><td>代码汤、知识之城成网、敦煌飞天</td></tr>
+    <tr><td>PDF 任务书</td><td class="c">1</td><td>任务书_图片生产线.pdf（学员版）</td></tr>
+    <tr><td>ZIP 打包</td><td class="c">2</td><td>web-article-saver skill 包、知识库可视化包</td></tr>
+    <tr><td>Python 脚本</td><td class="c">1</td><td>知识之城 scan.py（数据自动注入）</td></tr>
+    <tr><td>PPTX 演示文稿</td><td class="c">11 页</td><td>两日总结 · 独立志 zine</td></tr>
+  </table>
+
+  <div class="end-foot mono">
+    <span>2026.09.19–20 · 两天 · 九种形态 · 一条内容生产线</span>
+    <span>END OF ISSUE №01</span>
+  </div>
+</section>
+
+</body>
+</html>

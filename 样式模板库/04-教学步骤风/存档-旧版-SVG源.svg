@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="1080" height="7010" viewBox="0 0 1080 7010" xmlns="http://www.w3.org/2000/svg" font-family="'PingFang SC','Noto Sans SC','Hiragino Sans GB','Microsoft YaHei',sans-serif">
+  <title>Playwright MCP —— 给 Claude 一双看得见、点得动的手</title>
+
+  <defs>
+    <clipPath id="charClip">
+      <text x="540" y="840" text-anchor="middle" font-family="'Noto Serif SC','Songti SC','STSong','SimSun',serif" font-weight="900" font-size="420">览</text>
+    </clipPath>
+    <marker id="arrowInk" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#26231D"/>
+    </marker>
+    <marker id="arrowRed" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#AE3B32"/>
+    </marker>
+    <filter id="paperGrain">
+      <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" result="n"/>
+      <feColorMatrix in="n" type="saturate" values="0"/>
+    </filter>
+  </defs>
+
+  <!-- ============ 底色与纸纹 ============ -->
+  <rect width="1080" height="7010" fill="#F5F1E6"/>
+  <rect width="1080" height="7010" filter="url(#paperGrain)" opacity="0.05"/>
+
+  <!-- ============ 四角装饰线 ============ -->
+  <g stroke="#26231D" stroke-width="2" fill="none" opacity="0.75">
+    <path d="M36,62 L36,36 L62,36"/>
+    <path d="M1018,36 L1044,36 L1044,62"/>
+    <path d="M36,6948 L36,6974 L62,6974"/>
+    <path d="M1018,6974 L1044,6974 L1044,6948"/>
+  </g>
+
+  <!-- ============ 页眉 ============ -->
+  <text x="540" y="104" text-anchor="middle" font-size="20" letter-spacing="8" fill="#6E7B88">项目演示 · AI 工具篇 · 二〇二六年九月</text>
+  <text x="540" y="200" text-anchor="middle" font-family="'Noto Serif SC','Songti SC','STSong',serif" font-weight="700" font-size="78" fill="#26231D">Playwright MCP</text>
+  <text x="540" y="256" text-anchor="middle" font-size="30" fill="#6E7B88">给 Claude 一双看得见、点得动的手</text>
+  <rect x="512" y="288" width="56" height="3" fill="#26231D"/>
+
+  <!-- 两侧竖排小字 -->
+  <text x="118" y="500" font-size="22" fill="#8A8574" letter-spacing="10" style="writing-mode:vertical-rl">以目驭页</text>
+  <text x="962" y="500" font-size="22" fill="#8A8574" letter-spacing="10" style="writing-mode:vertical-rl">万页皆览</text>
+
+  <!-- ============ 巨字「览」+ 织入代码 ============ -->
+  <g clip-path="url(#charClip)">
+    <text x="330" y="520" font-family="'SF Mono','Menlo','JetBrains Mono',monospace" font-size="19" fill="#1E4E79">browser_navigate("mp.weixin.qq.com")</text>
+    <text x="300" y="554" font-family="'SF Mono','Menlo','JetBrains Mono',monospace" font-size="19" fill="#33658A">await page.waitForTimeout(1500)</text>
+    <text x="352" y="588" font-family="'SF Mono','Menlo','JetBrains Mono',monospace" font-size="19" fill="#7FA3C4">const walker = extract(article)</text>
+    <text x="316" y="622" font-family="'SF Mono','Menlo','JetBrains Mono',monospace" font-size="19" fill="#1E4E79">browser_snapshot() // a11y tree</text>
+    <text x="368" y="656" font-family="'SF Mono','Menlo','JetBrains Mono',monospace" font-size="19" fill="#33658A">find(text="登录") → s4e12</text>
+    <text x="300" y="690" font-family="'SF Mono','Menlo','JetBrains Mono',monospace" font-size="19" fill="#7FA3C4">network_requests(filter="m3u8")</text>
+    <text x="340" y="724" font-family="'SF Mono','Menlo','JetBrains Mono',monospace" font-size="19" fill="#1E4E79">[[IMG7]] → images/img-07.jpg</text>
+    <text x="312" y="758" font-family="'SF Mono','Menlo','JetBrains Mono',monospace" font-size="19" fill="#33658A">ffmpeg -i master.m3u8 -c copy</text>
+    <text x="356" y="792" font-family="'SF Mono','Menlo','JetBrains Mono',monospace" font-size="19" fill="#7FA3C4">verify() → ✅ 全部正常</text>
+  </g>
+  <text x="540" y="840" text-anchor="middle" font-family="'Noto Serif SC','Songti SC','STSong','SimSun',serif" font-weight="900" font-size="420" fill="#26231D" opacity="0.05">览</text>
+  <text x="540" y="840" text-anchor="middle" font-family="'Noto Serif SC','Songti SC','STSong','SimSun',serif" font-weight="900" font-size="420" fill="none" stroke="#26231D" stroke-width="3">览</text>
+  <rect x="758" y="800" width="20" height="38" fill="#AE3B32" opacity="0.9"/>
+
+  <text x="540" y="900" text-anchor="middle" font-family="'SF Mono','Menlo',monospace" font-size="18" fill="#33658A">// browser_evaluate(walker) → { text, imgs, covers }</text>
+
+  <!-- ============ 壹 · 它是什么 ============ -->
+  <g>
+    <rect x="90" y="980" width="60" height="60" rx="8" fill="#AE3B32"/>
+    <text x="120" y="1022" text-anchor="middle" font-family="'Noto Serif SC','Songti SC',serif" font-size="28" fill="#F5F1E6">壹</text>
+    <text x="170" y="1023" font-family="'Noto Serif SC','Songti SC',serif" font-weight="700" font-size="34" fill="#26231D">它是什么</text>
+    <line x1="90" y1="1052" x2="990" y2="1052" stroke="#26231D" stroke-width="1" opacity="0.25"/>
+
+    <text x="90" y="1180" font-family="'SF Mono','Menlo',monospace" font-size="21" fill="#1E4E79">Playwright</text>
+    <text x="90" y="1218" font-size="26" fill="#4A463C">微软开源的浏览器自动化框架，本为程序员编写网页测试而生。</text>
+
+    <text x="90" y="1300" font-family="'SF Mono','Menlo',monospace" font-size="21" fill="#1E4E79">MCP · Model Context Protocol</text>
+    <text x="90" y="1338" font-size="26" fill="#4A463C">让 AI 调用外部工具的开放协议，工具以统一方式接入模型。</text>
+
+    <text x="90" y="1420" font-family="'Noto Serif SC','Songti SC',serif" font-weight="700" font-size="23" fill="#AE3B32">两者相加 · Playwright MCP</text>
+    <text x="90" y="1458" font-size="26" fill="#4A463C">Claude 亲自打开浏览器、读页面、点按钮、填表单——你只说清要什么。</text>
+
+    <rect x="90" y="1530" width="900" height="90" rx="6" fill="#EFE9D9" stroke="#C9C0AC" stroke-width="1"/>
+    <rect x="90" y="1530" width="6" height="90" fill="#AE3B32"/>
+    <text x="540" y="1586" text-anchor="middle" font-family="'Noto Serif SC','Songti SC',serif" font-weight="700" font-size="30" fill="#26231D">你只说「帮我看看这个网页」，其余的交给 Claude。</text>
+  </g>
+
+  <!-- ============ 贰 · 关键机制 ============ -->
+  <g>
+    <rect x="90" y="1710" width="60" height="60" rx="8" fill="#AE3B32"/>
+    <text x="120" y="1752" text-anchor="middle" font-family="'Noto Serif SC','Songti SC',serif" font-size="28" fill="#F5F1E6">贰</text>
+    <text x="170" y="1753" font-family="'Noto Serif SC','Songti SC',serif" font-weight="700" font-size="34" fill="#26231D">关键机制：读结构，不是看截图</text>
+    <line x1="90" y1="1782" x2="990" y2="1782" stroke="#26231D" stroke-width="1" opacity="0.25"/>
+
+    <text x="90" y="1842" font-size="26" fill="#4A463C">它看页面靠的不是截图，而是一份「无障碍树」。</text>
+
+    <rect x="90" y="1880" width="420" height="280" rx="6" fill="none" stroke="#B7AE97" stroke-width="1.5"/>
+    <text x="120" y="1932" font-size="24" fill="#8A8574" font-weight="600">✕ 拍成截图给模型</text>
+    <text x="120" y="1990" font-size="23" fill="#4A463C">· token 成本高，一图顶千言</text>
+    <text x="120" y="2042" font-size="23" fill="#4A463C">· 小字看不清，按钮点不准</text>
+    <text x="120" y="2094" font-size="23" fill="#4A463C">· 每操作一步都得重拍</text>
+    <text x="120" y="2146" font-size="23" fill="#4A463C">· 难以复现与核对</text>
+
+    <rect x="570" y="1880" width="420" height="280" rx="6" fill="#EFE9D9" stroke="#1E4E79" stroke-width="1.5"/>
+    <text x="600" y="1932" font-size="24" fill="#1E4E79" font-weight="600">✓ 读成无障碍树（结构文本）</text>
+    <text x="600" y="1990" font-size="23" fill="#4A463C">· 页面变成一份层级分明的文本</text>
+    <text x="600" y="2042" font-size="23" fill="#4A463C">· 标题、按钮、输入框一目了然</text>
+    <text x="600" y="2094" font-size="23" fill="#4A463C">· 元素自带编号 ref，点名即达</text>
+    <text x="600" y="2146" font-size="23" fill="#4A463C">· 省 token，可复现</text>
+
+    <text x="540" y="2222" text-anchor="middle" font-family="'SF Mono','Menlo',monospace" font-size="19" fill="#33658A">例：button「登录」 ref=s4e12 → browser_click(ref=s4e12)</text>
+  </g>
+
+  <!-- ============ 叁 · 安装 ============ -->
+  <g>
+    <rect x="90" y="2320" width="60" height="60" rx="8" fill="#AE3B32"/>
+    <text x="120" y="2362" text-anchor="middle" font-family="'Noto Serif SC','Songti SC',serif" font-size="28" fill="#F5F1E6">叁</text>
+    <text x="170" y="2363" font-family="'Noto Serif SC','Songti SC',serif" font-weight="700" font-size="34" fill="#26231D">装上它，只要两步</text>
+    <line x1="90" y1="2392" x2="990" y2="2392" stroke="#26231D" stroke-width="1" opacity="0.25"/>
+
+    <text x="90" y="2452" font-size="25" fill="#26231D" font-weight="600">一 · 注册（user 作用域，所有项目可用）</text>
+    <rect x="90" y="2480" width="900" height="100" rx="6" fill="#EFE9D9" stroke="#C9C0AC" stroke-width="1"/>
+    <text x="120" y="2526" font-family="'SF Mono','Menlo','JetBrains Mono',monospace" font-size="20" fill="#1E4E79">claude mcp add playwright -s user \</text>
+    <text x="120" y="2562" font-family="'SF Mono','Menlo','JetBrains Mono',monospace" font-size="20" fill="#1E4E79">  -- npx -y @playwright/mcp@latest</text>
+
+    <text x="90" y="2648" font-size="25" fill="#26231D" font-weight="600">二 · <tspan fill="#AE3B32">重启 Claude Code</tspan></text>
+    <text x="90" y="2684" font-size="23" fill="#4A463C">MCP 只在启动时加载，装完的当次会话里不会生效，这是最常见的「装了却找不到」。</text>
+
+    <text x="90" y="2748" font-size="25" fill="#26231D" font-weight="600">三 · 验证</text>
+    <text x="90" y="2784" font-size="23" fill="#4A463C">会话里出现 browser_ 开头的工具，即告完成。</text>
+  </g>
+
+  <!-- ============ 肆 · 工具箱 ============ -->
+  <g>
+    <rect x="90" y="2870" width="60" height="60" rx="8" fill="#AE3B32"/>
+    <text x="120" y="2912" text-anchor="middle" font-family="'Noto Serif SC','Songti SC',serif" font-size="28" fill="#F5F1E6">肆</text>
+    <text x="170" y="2913" font-family="'Noto Serif SC','Songti SC',serif" font-weight="700" font-size="34" fill="#26231D">工具箱：四个动词</text>
+    <line x1="90" y1="2942" x2="990" y2="2942" stroke="#26231D" stroke-width="1" opacity="0.25"/>
+
+    <text x="90" y="2996" font-size="26" fill="#4A463C">二十余个工具，记四个动词就够了——看、动、跑、调。</text>
+
+    <rect x="90" y="3040" width="435" height="250" rx="6" fill="none" stroke="#C9C0AC" stroke-width="1.5"/>
+    <text x="120" y="3092" font-family="'Noto Serif SC','Songti SC',serif" font-weight="700" font-size="28" fill="#26231D">看 <tspan font-family="'SF Mono','Menlo',monospace" font-size="18" fill="#7FA3C4">SEE</tspan></text>
+    <text x="120" y="3148" font-family="'SF Mono','Menlo',monospace" font-size="20" fill="#1E4E79">navigate <tspan font-family="'PingFang SC',sans-serif" fill="#4A463C">—— 打开网页</tspan></text>
+    <text x="120" y="3190" font-family="'SF Mono','Menlo',monospace" font-size="20" fill="#1E4E79">snapshot <tspan font-family="'PingFang SC',sans-serif" fill="#4A463C">—— 读页面结构</tspan></text>
+    <text x="120" y="3232" font-family="'SF Mono','Menlo',monospace" font-size="20" fill="#1E4E79">find <tspan font-family="'PingFang SC',sans-serif" fill="#4A463C">—— 在页面里找元素</tspan></text>
+    <text x="120" y="3274" font-family="'SF Mono','Menlo',monospace" font-size="20" fill="#1E4E79">network_requests <tspan font-family="'PingFang SC',sans-serif" fill="#4A463C">—— 看接口</tspan></text>
+
+    <rect x="555" y="3040" width="435" height="250" rx="6" fill="none" stroke="#C9C0AC" stroke-width="1.5"/>
+    <text x="585" y="3092" font-family="'Noto Serif SC','Songti SC',serif" font-weight="700" font-size="28" fill="#26231D">动 <tspan font-family="'SF Mono','Menlo',monospace" font-size="18" fill="#7FA3C4">ACT</tspan></text>
+    <text x="585" y="3148" font-family="'SF Mono','Menlo',monospace" font-size="20" fill="#1E4E79">click <tspan font-family="'PingFang SC',sans-serif" fill="#4A463C">—— 点击</tspan></text>
+    <text x="585" y="3190" font-family="'SF Mono','Menlo',monospace" font-size="20" fill="#1E4E79">type <tspan font-family="'PingFang SC',sans-serif" fill="#4A463C">—— 输入文字</tspan></text>
+    <text x="585" y="3232" font-family="'SF Mono','Menlo',monospace" font-size="20" fill="#1E4E79">fill_form <tspan font-family="'PingFang SC',sans-serif" fill="#4A463C">—— 整表一次填</tspan></text>
+    <text x="585" y="3274" font-family="'SF Mono','Menlo',monospace" font-size="20" fill="#1E4E79">file_upload <tspan font-family="'PingFang SC',sans-serif" fill="#4A463C">—— 上传文件</tspan></text>
+
+    <rect x="90" y="3320" width="435" height="250" rx="6" fill="none" stroke="#C9C0AC" stroke-width="1.5"/>
+    <text x="120" y="3372" font-family="'Noto Serif SC','Songti SC',serif" font-weight="700" font-size="28" fill="#26231D">跑 <tspan font-family="'SF Mono','Menlo',monospace" font-size="18" fill="#7FA3C4">RUN</tspan></text>
+    <text x="120" y="3428" font-family="'SF Mono','Menlo',monospace" font-size="20" fill="#1E4E79">evaluate <tspan font-family="'PingFang SC',sans-serif" fill="#4A463C">—— 在页面里执行脚本</tspan></text>
+    <text x="120" y="3470" font-family="'SF Mono','Menlo',monospace" font-size="20" fill="#1E4E79">run_code_unsafe</text>
+    <text x="120" y="3504" font-family="'PingFang SC',sans-serif" font-size="20" fill="#4A463C">　—— 编排滚动、悬停等连续动作</text>
+
+    <rect x="555" y="3320" width="435" height="250" rx="6" fill="none" stroke="#C9C0AC" stroke-width="1.5"/>
+    <text x="585" y="3372" font-family="'Noto Serif SC','Songti SC',serif" font-weight="700" font-size="28" fill="#26231D">调 <tspan font-family="'SF Mono','Menlo',monospace" font-size="18" fill="#7FA3C4">TUNE</tspan></text>
+    <text x="585" y="3428" font-family="'SF Mono','Menlo',monospace" font-size="20" fill="#1E4E79">resize <tspan font-family="'PingFang SC',sans-serif" fill="#4A463C">—— 换窗口尺寸</tspan></text>
+    <text x="585" y="3470" font-family="'SF Mono','Menlo',monospace" font-size="20" fill="#1E4E79">emulate_media <tspan font-family="'PingFang SC',sans-serif" fill="#4A463C">—— 深色</tspan></text>
+    <text x="585" y="3512" font-family="'SF Mono','Menlo',monospace" font-size="20" fill="#1E4E79">tabs / wait_for <tspan font-family="'PingFang SC',sans-serif" fill="#4A463C">—— 标签与等待</tspan></text>
+  </g>
+
+  <!-- ============ 伍 · 一次典型的会话 ============ -->
+  <g>
+    <rect x="90" y="3630" width="60" height="60" rx="8" fill="#AE3B32"/>
+    <text x="120" y="3672" text-anchor="middle" font-family="'Noto Serif SC','Songti SC',serif" font-size="28" fill="#F5F1E6">伍</text>
+    <text x="170" y="3673" font-family="'Noto Serif SC','Songti SC',serif" font-weight="700" font-size="34" fill="#26231D">一次典型的浏览器会话</text>
+    <line x1="90" y1="3702" x2="990" y2="3702" stroke="#26231D" stroke-width="1" opacity="0.25"/>
+
+    <!-- 步骤胶囊 -->
+    <rect x="200" y="3760" width="680" height="64" rx="32" fill="#26231D"/>
+    <text x="540" y="3800" text-anchor="middle" font-size="24" fill="#F5F1E6">① 你说需求：「帮我看看这个页面」</text>
+    <line x1="540" y1="3828" x2="540" y2="3852" stroke="#26231D" stroke-width="2" marker-end="url(#arrowInk)"/>
+
+    <rect x="200" y="3856" width="680" height="64" rx="32" fill="#EFE9D9" stroke="#C9C0AC" stroke-width="1"/>
+    <text x="540" y="3896" text-anchor="middle" font-size="24" fill="#26231D"><tspan font-family="'SF Mono','Menlo',monospace" fill="#1E4E79">navigate</tspan> —— 打开页面</text>
+    <line x1="540" y1="3924" x2="540" y2="3948" stroke="#26231D" stroke-width="2" marker-end="url(#arrowInk)"/>
+
+    <rect x="200" y="3952" width="680" height="64" rx="32" fill="#EFE9D9" stroke="#C9C0AC" stroke-width="1"/>
+    <text x="540" y="3992" text-anchor="middle" font-size="24" fill="#26231D"><tspan font-family="'SF Mono','Menlo',monospace" fill="#1E4E79">snapshot</tspan> —— 读出结构</text>
+    <line x1="540" y1="4020" x2="540" y2="4044" stroke="#26231D" stroke-width="2" marker-end="url(#arrowInk)"/>
+
+    <rect x="200" y="4048" width="680" height="64" rx="32" fill="#EFE9D9" stroke="#C9C0AC" stroke-width="1"/>
+    <text x="540" y="4088" text-anchor="middle" font-size="24" fill="#26231D"><tspan font-family="'SF Mono','Menlo',monospace" fill="#1E4E79">find</tspan> —— 定位目标元素</text>
+    <line x1="540" y1="4116" x2="540" y2="4140" stroke="#26231D" stroke-width="2" marker-end="url(#arrowInk)"/>
+
+    <rect x="200" y="4144" width="680" height="64" rx="32" fill="#EFE9D9" stroke="#C9C0AC" stroke-width="1"/>
+    <text x="540" y="4184" text-anchor="middle" font-size="24" fill="#26231D"><tspan font-family="'SF Mono','Menlo',monospace" fill="#1E4E79">click / type</tspan> —— 点击、输入</text>
+    <line x1="540" y1="4212" x2="540" y2="4236" stroke="#26231D" stroke-width="2" marker-end="url(#arrowInk)"/>
+
+    <rect x="200" y="4240" width="680" height="64" rx="32" fill="#EFE9D9" stroke="#C9C0AC" stroke-width="1"/>
+    <text x="540" y="4280" text-anchor="middle" font-size="24" fill="#26231D"><tspan font-family="'SF Mono','Menlo',monospace" fill="#1E4E79">evaluate</tspan> —— 跑脚本取数据</text>
+    <line x1="540" y1="4308" x2="540" y2="4332" stroke="#26231D" stroke-width="2" marker-end="url(#arrowInk)"/>
+
+    <rect x="200" y="4336" width="680" height="64" rx="32" fill="#EFE9D9" stroke="#C9C0AC" stroke-width="1"/>
+    <text x="540" y="4376" text-anchor="middle" font-size="24" fill="#26231D"><tspan font-family="'SF Mono','Menlo',monospace" fill="#1E4E79">network_requests</tspan> —— 抓接口</text>
+    <line x1="540" y1="4404" x2="540" y2="4428" stroke="#26231D" stroke-width="2" marker-end="url(#arrowInk)"/>
+
+    <rect x="200" y="4432" width="680" height="64" rx="32" fill="none" stroke="#AE3B32" stroke-width="2"/>
+    <text x="540" y="4472" text-anchor="middle" font-size="24" fill="#26231D">⑧ 完成 —— 不对就回到第 ③ 步再看一眼</text>
+
+    <!-- 循环回线 -->
+    <path d="M200,4464 L150,4464 L150,3984 L194,3984" fill="none" stroke="#AE3B32" stroke-width="2" stroke-dasharray="6,5" marker-end="url(#arrowRed)"/>
+    <text x="128" y="4230" font-size="20" fill="#AE3B32" letter-spacing="4" style="writing-mode:vertical-rl">循环</text>
+  </g>
+
+  <!-- ============ 陆 · 三个实战案例 ============ -->
+  <g>
+    <rect x="90" y="4570" width="60" height="60" rx="8" fill="#AE3B32"/>
+    <text x="120" y="4612" text-anchor="middle" font-family="'Noto Serif SC','Songti SC',serif" font-size="28" fill="#F5F1E6">陆</text>
+    <text x="170" y="4613" font-family="'Noto Serif SC','Songti SC',serif" font-weight="700" font-size="34" fill="#26231D">三个实战案例（皆取自真实项目）</text>
+    <line x1="90" y1="4642" x2="990" y2="4642" stroke="#26231D" stroke-width="1" opacity="0.25"/>
+
+    <rect x="90" y="4700" width="900" height="300" rx="6" fill="#EFE9D9" stroke="#C9C0AC" stroke-width="1"/>
+    <text x="130" y="4766" font-family="'Noto Serif SC','Songti SC',serif" font-weight="700" font-size="28" fill="#1E4E79">案例一 · 本地应用自测</text>
+    <text x="130" y="4830" font-size="25" fill="#4A463C">改完前端不必自己逐个点：让 Claude 打开本地页面，</text>
+    <text x="130" y="4880" font-size="25" fill="#4A463C">把按钮点一遍、读控制台报错、截图留档。</text>
+    <text x="130" y="4930" font-size="25" fill="#4A463C">改动是否生效，当场见分晓。</text>
+
+    <rect x="90" y="5040" width="900" height="300" rx="6" fill="#EFE9D9" stroke="#C9C0AC" stroke-width="1"/>
+    <text x="130" y="5106" font-family="'Noto Serif SC','Songti SC',serif" font-weight="700" font-size="28" fill="#1E4E79">案例二 · 公众号文章存档</text>
+    <text x="130" y="5170" font-size="25" fill="#4A463C">图片有防盗链、内容懒加载：Claude 滚动全文触发加载，</text>
+    <text x="130" y="5220" font-size="25" fill="#4A463C">提取图片与视频直链、带来源头下载，</text>
+    <text x="130" y="5270" font-size="25" fill="#4A463C">生成图文各归其位的 Markdown 存档。</text>
+
+    <rect x="90" y="5380" width="900" height="300" rx="6" fill="#EFE9D9" stroke="#C9C0AC" stroke-width="1"/>
+    <text x="130" y="5446" font-family="'Noto Serif SC','Songti SC',serif" font-weight="700" font-size="28" fill="#1E4E79">案例三 · 登录墙后的长文</text>
+    <text x="130" y="5510" font-size="25" fill="#4A463C">常规抓取拿不到正文：改用 Playwright MCP 打开页面，</text>
+    <text x="130" y="5560" font-size="25" fill="#4A463C">在页面里跑一段提取脚本，</text>
+    <text x="130" y="5610" font-size="25" fill="#4A463C">正文、图位、封面一次取全。</text>
+  </g>
+
+  <!-- ============ 柒 · 避坑四条 ============ -->
+  <g>
+    <rect x="90" y="5760" width="60" height="60" rx="8" fill="#AE3B32"/>
+    <text x="120" y="5802" text-anchor="middle" font-family="'Noto Serif SC','Songti SC',serif" font-size="28" fill="#F5F1E6">柒</text>
+    <text x="170" y="5803" font-family="'Noto Serif SC','Songti SC',serif" font-weight="700" font-size="34" fill="#26231D">避坑四条（都是踩过的）</text>
+    <line x1="90" y1="5832" x2="990" y2="5832" stroke="#26231D" stroke-width="1" opacity="0.25"/>
+
+    <rect x="90" y="5890" width="44" height="44" rx="6" fill="none" stroke="#AE3B32" stroke-width="1.5"/>
+    <text x="112" y="5921" text-anchor="middle" font-family="'Noto Serif SC','Songti SC',serif" font-size="22" fill="#AE3B32">一</text>
+    <text x="158" y="5908" font-size="25" fill="#26231D" font-weight="600">反爬识别</text>
+    <text x="158" y="5946" font-size="23" fill="#4A463C">手写脚本易被站点识别拦截；MCP 指纹不同，实测能过——此类任务只走 MCP。</text>
+
+    <rect x="90" y="5996" width="44" height="44" rx="6" fill="none" stroke="#AE3B32" stroke-width="1.5"/>
+    <text x="112" y="6027" text-anchor="middle" font-family="'Noto Serif SC','Songti SC',serif" font-size="22" fill="#AE3B32">二</text>
+    <text x="158" y="6014" font-size="25" fill="#26231D" font-weight="600">长文勿用 snapshot 读正文</text>
+    <text x="158" y="6052" font-size="23" fill="#4A463C">结构文本动辄几十 KB，易撑爆上下文；改用 evaluate 跑提取脚本，紧凑十倍。</text>
+
+    <rect x="90" y="6102" width="44" height="44" rx="6" fill="none" stroke="#AE3B32" stroke-width="1.5"/>
+    <text x="112" y="6133" text-anchor="middle" font-family="'Noto Serif SC','Songti SC',serif" font-size="22" fill="#AE3B32">三</text>
+    <text x="158" y="6120" font-size="25" fill="#26231D" font-weight="600">视频懒加载</text>
+    <text x="158" y="6158" font-size="23" fill="#4A463C">不滚动、不悬停，视频流不加载；滚到位置触发后再抓流地址。</text>
+
+    <rect x="90" y="6208" width="44" height="44" rx="6" fill="none" stroke="#AE3B32" stroke-width="1.5"/>
+    <text x="112" y="6239" text-anchor="middle" font-family="'Noto Serif SC','Songti SC',serif" font-size="22" fill="#AE3B32">四</text>
+    <text x="158" y="6226" font-size="25" fill="#26231D" font-weight="600">命令写法</text>
+    <text x="158" y="6264" font-size="23" fill="#4A463C">一条命令做一件事、用绝对路径；复合串联会触发权限确认，后台任务会卡住。</text>
+  </g>
+
+  <!-- ============ 捌 · 什么时候用它 ============ -->
+  <g>
+    <rect x="90" y="6350" width="60" height="60" rx="8" fill="#AE3B32"/>
+    <text x="120" y="6392" text-anchor="middle" font-family="'Noto Serif SC','Songti SC',serif" font-size="28" fill="#F5F1E6">捌</text>
+    <text x="170" y="6393" font-family="'Noto Serif SC','Songti SC',serif" font-weight="700" font-size="34" fill="#26231D">什么时候用它</text>
+    <line x1="90" y1="6422" x2="990" y2="6422" stroke="#26231D" stroke-width="1" opacity="0.25"/>
+
+    <rect x="90" y="6470" width="435" height="250" rx="6" fill="#EFE9D9" stroke="#1E4E79" stroke-width="1.5"/>
+    <text x="120" y="6522" font-size="24" fill="#1E4E79" font-weight="600">✓ 用它</text>
+    <text x="120" y="6578" font-size="23" fill="#4A463C">· 内容要登录、滚动才出现</text>
+    <text x="120" y="6626" font-size="23" fill="#4A463C">· 需要点击、填表、上传</text>
+    <text x="120" y="6674" font-size="23" fill="#4A463C">· 要验证刚写完的前端</text>
+
+    <rect x="555" y="6470" width="435" height="250" rx="6" fill="none" stroke="#B7AE97" stroke-width="1.5"/>
+    <text x="585" y="6522" font-size="24" fill="#8A8574" font-weight="600">✕ 不必</text>
+    <text x="585" y="6578" font-size="23" fill="#4A463C">· 只读一篇静态文章</text>
+    <text x="585" y="6626" font-size="23" fill="#4A463C">· 普通网页阅读工具就够</text>
+    <text x="585" y="6674" font-size="23" fill="#4A463C">· 不必为它专门开浏览器</text>
+  </g>
+
+  <!-- ============ 页脚 ============ -->
+  <rect x="480" y="6790" width="120" height="2" fill="#26231D" opacity="0.5"/>
+  <text x="540" y="6872" text-anchor="middle" font-family="'Noto Serif SC','Songti SC',serif" font-weight="700" font-size="30" fill="#26231D">工具的意义不在炫技，而在让「你提需求、AI 动手」落到实处。</text>
+
+  <rect x="856" y="6796" width="92" height="92" rx="10" fill="#AE3B32"/>
+  <rect x="864" y="6804" width="76" height="76" rx="6" fill="none" stroke="#F5F1E6" stroke-width="1.5" opacity="0.8"/>
+  <text x="902" y="6864" text-anchor="middle" font-family="'Noto Serif SC','Songti SC',serif" font-weight="900" font-size="46" fill="#F5F1E6">览</text>
+
+  <text x="540" y="6948" text-anchor="middle" font-size="18" fill="#8A8574">案例取自 web-article-saver 等实际项目 · 二〇二六年九月二十日</text>
+</svg>

@@ -1,0 +1,379 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>研修班回顾·教学风 HTML 版｜氛围编程实战研修班(第2期)</title>
+<style>
+  /* ═══════════ 教学风 · 设计 Token ═══════════ */
+  :root{
+    --paper:#F5F1E6;  --ink:#26231D;   --blue:#1E4E79;  --blue2:#33658A;
+    --blue3:#7FA3C4;  --red:#AE3B32;   --body:#4A463C;  --faint:#8A8574;
+    --head:#6E7B88;   --card:#EFE9D9;  --cline:#C9C0AC; --xline:#B7AE97;
+    --serif:'Noto Serif SC','Songti SC','STSong','SimSun',serif;
+    --mono:'SF Mono','Menlo','JetBrains Mono',monospace;
+    --sans:'PingFang SC','Noto Sans SC','Hiragino Sans GB','Microsoft YaHei',sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html,body{background:var(--paper);}
+  body{width:1080px;margin:0 auto;font-family:var(--sans);color:var(--ink);
+       padding:72px 90px 90px;position:relative;}
+  /* 纸纹(轻噪点) */
+  body::before{content:'';position:absolute;inset:0;pointer-events:none;opacity:.05;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");}
+  /* 四角装饰线 */
+  .corner{position:absolute;width:26px;height:26px;opacity:.75;}
+  .corner.tl{top:36px;left:36px;border-top:2px solid var(--ink);border-left:2px solid var(--ink);}
+  .corner.tr{top:36px;right:36px;border-top:2px solid var(--ink);border-right:2px solid var(--ink);}
+  .corner.bl{bottom:36px;left:36px;border-bottom:2px solid var(--ink);border-left:2px solid var(--ink);}
+  .corner.br{bottom:36px;right:36px;border-bottom:2px solid var(--ink);border-right:2px solid var(--ink);}
+
+  /* ═══════════ 页眉 ═══════════ */
+  .t-head{text-align:center;margin-bottom:64px;}
+  .t-head .kicker{font-size:20px;letter-spacing:8px;color:var(--head);}
+  .t-head h1{font-family:var(--serif);font-weight:700;font-size:78px;margin:28px 0 14px;}
+  .t-head .sub{font-size:30px;color:var(--head);}
+  .t-head .rule{width:56px;height:3px;background:var(--ink);margin:32px auto 0;}
+
+  /* ═══════════ 巨字区(可选模块) ═══════════ */
+  .t-bigchar{position:relative;text-align:center;margin:36px 0 20px;height:470px;}
+  .t-bigchar .ghost{position:absolute;left:50%;top:0;transform:translateX(-50%);
+    font-family:var(--serif);font-weight:900;font-size:420px;line-height:1;
+    color:var(--ink);opacity:.05;}
+  .t-bigchar .outline{position:absolute;left:50%;top:0;transform:translateX(-50%);
+    font-family:var(--serif);font-weight:900;font-size:420px;line-height:1;
+    color:transparent;-webkit-text-stroke:3px var(--ink);}
+  .t-bigchar .accent{position:absolute;right:190px;bottom:42px;width:20px;height:38px;background:var(--red);opacity:.9;}
+  .t-weave{position:absolute;left:50%;top:60px;transform:translateX(-50%);width:620px;text-align:left;}
+  .t-weave div{font-family:var(--mono);font-size:19px;margin-bottom:34px;}
+  .t-weave .w1{color:var(--blue);padding-left:40px;}
+  .t-weave .w2{color:var(--blue2);padding-left:0;}
+  .t-weave .w3{color:var(--blue3);padding-left:70px;}
+  .t-weave .w4{color:var(--blue);padding-left:20px;}
+  .t-weave .w5{color:var(--blue2);padding-left:90px;}
+  .t-weave .w6{color:var(--blue3);padding-left:10px;}
+  .t-bigchar-cap{text-align:center;font-family:var(--mono);font-size:18px;color:var(--blue2);margin-bottom:70px;}
+
+  /* ═══════════ 通用章节骨架 ═══════════ */
+  .t-sec{margin-top:110px;}
+  .t-sec:first-of-type{margin-top:0;}
+  .t-sec-head{display:flex;align-items:center;gap:20px;padding-bottom:24px;
+    border-bottom:1px solid rgba(38,35,29,.25);}
+  .t-sec-no{width:60px;height:60px;border-radius:8px;background:var(--red);
+    color:var(--paper);font-family:var(--serif);font-size:28px;
+    display:flex;align-items:center;justify-content:center;flex:none;}
+  .t-sec-title{font-family:var(--serif);font-weight:700;font-size:34px;}
+  .t-sec .lead{font-size:26px;color:var(--body);margin:36px 0 0;}
+
+  /* 概念定义卡 */
+  .t-def{margin-top:48px;}
+  .t-def .term{font-family:var(--mono);font-size:21px;color:var(--blue);}
+  .t-def .desc{font-size:26px;color:var(--body);margin:10px 0 40px;}
+  .t-def .plus{font-family:var(--serif);font-weight:700;font-size:23px;color:var(--red);}
+  /* 结论条 */
+  .t-callout{margin-top:44px;background:var(--card);border:1px solid var(--cline);
+    border-left:6px solid var(--red);border-radius:6px;padding:28px 0;text-align:center;}
+  .t-callout b{font-family:var(--serif);font-weight:700;font-size:30px;}
+
+  /* ✕/✓ 对照 */
+  .t-vs{display:grid;grid-template-columns:1fr 1fr;gap:60px;margin-top:44px;}
+  .t-vs .box{border:1.5px solid var(--xline);border-radius:6px;padding:32px 30px;}
+  .t-vs .box.good{background:var(--card);border-color:var(--blue);}
+  .t-vs .box h4{font-size:24px;margin-bottom:26px;color:var(--faint);}
+  .t-vs .box.good h4{color:var(--blue);}
+  .t-vs li{list-style:none;font-size:23px;color:var(--body);margin-bottom:22px;}
+  .t-vs .eg{text-align:center;font-family:var(--mono);font-size:19px;color:var(--blue2);margin-top:36px;}
+
+  /* 装裱图框 */
+  .t-fig{margin-top:40px;}
+  .t-fig .mount{background:var(--card);border:1.5px solid var(--cline);border-radius:6px;
+    padding:14px;}
+  .t-fig img{display:block;width:100%;object-fit:cover;border-radius:2px;}
+  .t-fig .cap{display:flex;justify-content:space-between;font-family:var(--mono);
+    font-size:18px;color:var(--faint);margin-top:14px;letter-spacing:1px;}
+
+  /* 代码块 */
+  .t-code{margin-top:28px;background:var(--card);border:1px solid var(--cline);
+    border-radius:6px;padding:30px 34px;}
+  .t-code div{font-family:var(--mono);font-size:20px;color:var(--blue);line-height:1.8;}
+  .t-step-label{font-size:25px;font-weight:600;margin-top:44px;}
+  .t-step-label em{font-style:normal;color:var(--red);}
+  .t-step-note{font-size:23px;color:var(--body);margin-top:14px;}
+
+  /* 四象限卡 */
+  .t-grid2{display:grid;grid-template-columns:1fr 1fr;gap:60px 50px;margin-top:44px;}
+  .t-card{border:1.5px solid var(--cline);border-radius:6px;padding:32px 30px;}
+  .t-card h4{font-family:var(--serif);font-weight:700;font-size:28px;}
+  .t-card h4 small{font-family:var(--mono);font-size:18px;color:var(--blue3);margin-left:10px;font-weight:400;}
+  .t-card .cmd{font-family:var(--mono);font-size:20px;color:var(--blue);margin:24px 0 8px;}
+  .t-card .note{font-size:21px;color:var(--body);margin-top:10px;}
+
+  /* 流程胶囊(竖排) */
+  .t-flow{margin-top:44px;position:relative;padding-left:120px;}
+  .t-pill{border-radius:32px;padding:16px 0;text-align:center;font-size:24px;}
+  .t-pill.dark{background:var(--ink);color:var(--paper);}
+  .t-pill.lite{background:var(--card);border:1px solid var(--cline);}
+  .t-pill.end{background:none;border:2px solid var(--red);}
+  .t-pill .cmd{font-family:var(--mono);color:var(--blue);}
+  .t-arrow{text-align:center;font-size:22px;color:var(--ink);line-height:1.6;padding:6px 0;}
+  .t-loop{position:absolute;left:30px;top:70px;bottom:40px;border-left:2px dashed var(--red);}
+  .t-loop span{position:absolute;top:46%;left:-14px;writing-mode:vertical-rl;
+    letter-spacing:4px;font-size:20px;color:var(--red);background:var(--paper);padding:12px 0;}
+
+  /* 案例卡 */
+  .t-case{background:var(--card);border:1px solid var(--cline);border-radius:6px;
+    padding:36px 40px;margin-top:40px;}
+  .t-case h4{font-family:var(--serif);font-weight:700;font-size:28px;color:var(--blue);margin-bottom:22px;}
+  .t-case p{font-size:25px;color:var(--body);line-height:1.7;}
+  .t-case .who{font-size:22px;color:var(--faint);margin-top:16px;}
+
+  /* 编号要点 */
+  .t-point{display:flex;gap:22px;margin-top:36px;}
+  .t-point .no{flex:none;width:44px;height:44px;border:1.5px solid var(--red);border-radius:6px;
+    color:var(--red);font-family:var(--serif);font-size:22px;
+    display:flex;align-items:center;justify-content:center;}
+  .t-point .tx b{font-size:25px;display:block;margin-bottom:8px;}
+  .t-point .tx p{font-size:23px;color:var(--body);}
+
+  /* 适用判断 */
+  .t-fit{display:grid;grid-template-columns:1fr 1fr;gap:60px;margin-top:44px;}
+  .t-fit .box{border:1.5px solid var(--xline);border-radius:6px;padding:32px 30px;}
+  .t-fit .box.yes{background:var(--card);border-color:var(--blue);}
+  .t-fit .box h4{font-size:24px;margin-bottom:26px;}
+  .t-fit .box.yes h4{color:var(--blue);}
+  .t-fit .box.no h4{color:var(--faint);}
+  .t-fit li{list-style:none;font-size:23px;color:var(--body);margin-bottom:22px;}
+
+  /* 页脚 */
+  .t-foot{margin-top:120px;text-align:center;position:relative;}
+  .t-foot .rule{width:120px;height:2px;background:rgba(38,35,29,.5);margin:0 auto 40px;}
+  .t-foot .slogan{font-family:var(--serif);font-weight:700;font-size:30px;}
+  .t-foot .seal{position:absolute;right:0;top:-6px;width:92px;height:92px;border-radius:10px;
+    background:var(--red);display:flex;align-items:center;justify-content:center;}
+  .t-foot .seal::after{content:'';position:absolute;inset:8px;border:1.5px solid rgba(245,241,230,.8);border-radius:6px;}
+  .t-foot .seal span{font-family:var(--serif);font-weight:900;font-size:46px;color:var(--paper);}
+  .t-foot .credit{font-size:18px;color:var(--faint);margin-top:44px;}
+</style>
+</head>
+<body>
+  <span class="corner tl"></span><span class="corner tr"></span>
+  <span class="corner bl"></span><span class="corner br"></span>
+
+  <!-- ═══ 页眉 ═══ -->
+  <header class="t-head">
+    <p class="kicker">活动回顾 · 研修班篇 · 二〇二六年九月</p>
+    <h1>氛围编程实战研修班</h1>
+    <p class="sub">第2期 · 两天 · 37 位学员 · 四类成果</p>
+    <div class="rule"></div>
+  </header>
+
+  <!-- ═══ 巨字区(织入学员金句) ═══ -->
+  <div class="t-bigchar">
+    <span class="ghost">跃</span><span class="outline">跃</span>
+    <div class="t-weave">
+      <div class="w1">「实操占比很高，现场上手体验」</div>
+      <div class="w2">「把大任务分割成小任务」</div>
+      <div class="w3">「不写代码，也能做出小程序」</div>
+      <div class="w4">讨论 → 规划 → 执行 → 迭代</div>
+      <div class="w5">把做法写成规则 → 工作流</div>
+      <div class="w6">表格 → 数据清洗 → 交互图表</div>
+    </div>
+    <span class="accent"></span>
+  </div>
+  <p class="t-bigchar-cap">// 两天 · 一场思维跃迁 · 织入的都是学员原话</p>
+
+  <!-- ═══ 壹 · 它是什么 ═══ -->
+  <section class="t-sec">
+    <div class="t-sec-head"><span class="t-sec-no">壹</span><h2 class="t-sec-title">它是什么</h2></div>
+    <div class="t-def">
+      <p class="term">氛围编程 · Vibe Coding</p>
+      <p class="desc">用自然语言描述任务，与 AI 协作完成——不学语法，学协作。</p>
+      <p class="term">任务驱动 · Work-driven</p>
+      <p class="desc">真实任务进课堂：教务表格、教学设计、汇报材料，就是练习题。</p>
+      <p class="plus">两者相加 · 本期研修班</p>
+      <p class="desc">37 位教育、科研、政务、企业学员——零基础，两天，四类成果。</p>
+    </div>
+    <div class="t-callout"><b>从「用 AI 聊天」，到「用 AI 做事」。</b></div>
+    <figure class="t-fig">
+      <div class="mount"><img src="workshop-cover.png" alt="第2期研修班全体学员合影"></div>
+      <figcaption class="cap"><span>北京大学教育学院 · 第2期全体学员</span><span>图 1-1</span></figcaption>
+    </figure>
+  </section>
+
+  <!-- ═══ 贰 · 课程理念 ═══ -->
+  <section class="t-sec">
+    <div class="t-sec-head"><span class="t-sec-no">贰</span><h2 class="t-sec-title">课程理念：实操，不是演示</h2></div>
+    <p class="lead">研修班的每一段都围绕「当场做出来」设计。</p>
+    <div class="t-vs">
+      <div class="box">
+        <h4>✕ 传统培训的样子</h4>
+        <ul>
+          <li>· 理论讲解为主，演示多于上手</li>
+          <li>· 练习题是编的，与工作无关</li>
+          <li>· 学完很难带走什么</li>
+          <li>· 听懂了，回去还是不会</li>
+        </ul>
+      </div>
+      <div class="box good">
+        <h4>✓ 本期研修的样子</h4>
+        <ul>
+          <li>· 实操占比很高，现场上手</li>
+          <li>· 真实任务做练习材料</li>
+          <li>· 成果可运行、可展示</li>
+          <li>· 带走的是工作流，不是笔记</li>
+        </ul>
+      </div>
+    </div>
+    <p class="eg" style="text-align:center;font-family:var(--mono);font-size:19px;color:var(--blue2);margin-top:36px;">例：教务表格 → 现场做成动态更新的框架</p>
+  </section>
+
+  <!-- ═══ 叁 · 两日课程 ═══ -->
+  <section class="t-sec">
+    <div class="t-sec-head"><span class="t-sec-no">叁</span><h2 class="t-sec-title">两天，三段进阶</h2></div>
+    <p class="t-step-label">一 · 第一天上午 · 学方法</p>
+    <div class="t-code">
+      <div>学习科学 × HTML 教学游戏</div>
+      <div>&nbsp;&nbsp;讨论 → 规划 → 执行 → 迭代</div>
+    </div>
+    <figure class="t-fig">
+      <div class="mount"><img src="workshop-teacher-1.jpg" alt="教学游戏专题授课"></div>
+      <figcaption class="cap"><span>从教学目标出发 · 把想法变成可运行的游戏</span><span>图 3-1</span></figcaption>
+    </figure>
+    <p class="t-step-label">二 · 第一天下午 · <em>练数据</em></p>
+    <p class="t-step-note">WorkBuddy 等工具完成数据清洗、分析与交互式图表——工作中的表格就是题面。</p>
+    <figure class="t-fig">
+      <div class="mount"><img src="workshop-teacher-2.jpg" alt="数据分析与可视化授课"></div>
+      <figcaption class="cap"><span>用自然语言驱动 · 清洗、分析、出图</span><span>图 3-2</span></figcaption>
+    </figure>
+    <p class="t-step-label">三 · 第二天 · 出成果</p>
+    <p class="t-step-note">多智能体联合工作：文章下载、PPT 制作、公文写作、素材生产，汇总为一份数字化学习成果。</p>
+    <figure class="t-fig">
+      <div class="mount"><img src="workshop-class.jpg" alt="研修班课堂现场"></div>
+      <figcaption class="cap"><span>真实任务进课堂 · 作品可运行可展示</span><span>图 3-3</span></figcaption>
+    </figure>
+  </section>
+
+  <!-- ═══ 肆 · 四类成果 ═══ -->
+  <section class="t-sec">
+    <div class="t-sec-head"><span class="t-sec-no">肆</span><h2 class="t-sec-title">四类成果：都可带走</h2></div>
+    <p class="lead">每位学员按自己的需求完成——不是统一作业，是各自的真实作品。</p>
+    <div class="t-grid2">
+      <div class="t-card">
+        <h4>游戏 <small>GAME</small></h4>
+        <p class="cmd">教学游戏 —— HTML 可运行</p>
+        <p class="note">目标落位，学生愿意玩；四步协作法当场走通。</p>
+      </div>
+      <div class="t-card">
+        <h4>图表 <small>CHART</small></h4>
+        <p class="cmd">数据分析 —— 交互式可视化</p>
+        <p class="note">一张表变成一张图；教务效率当场提高。</p>
+      </div>
+      <div class="t-card">
+        <h4>海报 <small>POSTER</small></h4>
+        <p class="cmd">品牌海报 —— 可直接使用</p>
+        <p class="note">自己的机构、自己的要素；现场生成现场迭代。</p>
+      </div>
+      <div class="t-card">
+        <h4>工作流 <small>SKILL</small></h4>
+        <p class="cmd">SKILL 工作流 —— 可复用</p>
+        <p class="note">把做法写成规则；一次成功，反复调用。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ 伍 · 一位学员的两天 ═══ -->
+  <section class="t-sec">
+    <div class="t-sec-head"><span class="t-sec-no">伍</span><h2 class="t-sec-title">一位学员的两天</h2></div>
+    <div class="t-flow">
+      <div class="t-loop"><span>复用</span></div>
+      <div class="t-pill dark">① 带着一个真实需求进教室</div>
+      <div class="t-arrow">↓</div>
+      <div class="t-pill lite"><span class="cmd">D1 上午</span> —— 学方法：教学游戏四步协作</div>
+      <div class="t-arrow">↓</div>
+      <div class="t-pill lite"><span class="cmd">D1 下午</span> —— 练数据：清洗、分析、出图</div>
+      <div class="t-arrow">↓</div>
+      <div class="t-pill lite"><span class="cmd">D2 全天</span> —— 综合实战：多智能体协作</div>
+      <div class="t-arrow">↓</div>
+      <div class="t-pill lite">产出 —— 教学游戏 / 图表 / 海报 / 工作流</div>
+      <div class="t-arrow">↓</div>
+      <div class="t-pill lite">展示 —— 作品互评与点评</div>
+      <div class="t-arrow">↓</div>
+      <div class="t-pill lite">沉淀 —— 把做法写成可复用规则</div>
+      <div class="t-arrow">↓</div>
+      <div class="t-pill end">⑧ 回岗 —— 真实任务里继续用</div>
+    </div>
+  </section>
+
+  <!-- ═══ 陆 · 学员怎么说 ═══ -->
+  <section class="t-sec">
+    <div class="t-sec-head"><span class="t-sec-no">陆</span><h2 class="t-sec-title">两天之后，学员这样说</h2></div>
+    <div class="t-case">
+      <h4>关于课堂</h4>
+      <p>「课程并非单纯理论讲解，实操占比很高，现场可以上手体验 AI 工具。」</p>
+      <p class="who">—— 第2期学员</p>
+    </div>
+    <div class="t-case">
+      <h4>关于方法</h4>
+      <p>「对于 Prompt 有了新的理解，可以让 AI 思考解决方案，把大任务分割成小任务。」</p>
+      <p class="who">—— 第2期学员</p>
+    </div>
+    <div class="t-case">
+      <h4>关于突破</h4>
+      <p>「即使不用写代码，也可以做出各种小程序。」</p>
+      <p class="who">—— 第2期学员</p>
+    </div>
+  </section>
+
+  <!-- ═══ 柒 · 四个特点 ═══ -->
+  <section class="t-sec">
+    <div class="t-sec-head"><span class="t-sec-no">柒</span><h2 class="t-sec-title">研修班四个特点</h2></div>
+    <div class="t-point">
+      <span class="no">一</span>
+      <div class="tx"><b>零门槛，但不降任务要求</b><p>不写代码，以自然语言协作；真正训练的是卡住之后怎么办。</p></div>
+    </div>
+    <div class="t-point">
+      <span class="no">二</span>
+      <div class="tx"><b>学习科学做方法依据</b><p>不只学工具操作，还理解怎么在真实任务里学得更快更牢。</p></div>
+    </div>
+    <div class="t-point">
+      <span class="no">三</span>
+      <div class="tx"><b>贯通完整工具谱系</b><p>对话式工具、智能体工具、工程化 Coding Agent 依次上手。</p></div>
+    </div>
+    <div class="t-point">
+      <span class="no">四</span>
+      <div class="tx"><b>结课之后仍能继续</b><p>课程专属智能体开放一个月，学习社群长期支持项目推进。</p></div>
+    </div>
+  </section>
+
+  <!-- ═══ 捌 · 谁适合下一期 ═══ -->
+  <section class="t-sec">
+    <div class="t-sec-head"><span class="t-sec-no">捌</span><h2 class="t-sec-title">谁适合下一期</h2></div>
+    <div class="t-fit">
+      <div class="box yes">
+        <h4>✓ 适合</h4>
+        <ul>
+          <li>· 有真实任务要交付的人</li>
+          <li>· 想让 AI 进入日常教学/事务</li>
+          <li>· 不想学编程语法，只要成果</li>
+        </ul>
+      </div>
+      <div class="box no">
+        <h4>✕ 也许不必</h4>
+        <ul>
+          <li>· 只想听概念演示</li>
+          <li>· 手头没有实际任务</li>
+          <li>· 期待「学会一款软件」</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ 页脚 ═══ -->
+  <footer class="t-foot">
+    <div class="rule"></div>
+    <p class="slogan">课程结束，但真实任务中的人机协作才刚刚开始。</p>
+    <div class="seal"><span>跃</span></div>
+    <p class="credit">内容整理自「氛围编程实验室」公众号原文 · 二〇二六年九月十九至二十日</p>
+  </footer>
+</body>
+</html>

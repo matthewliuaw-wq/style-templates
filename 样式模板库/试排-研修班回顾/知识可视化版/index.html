@@ -1,0 +1,1203 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>两天研修，长成一座方法之城</title>
+<meta name="description" content="三个月，356 篇文章、113 段视频——一个本地文件夹如何喂出一场教学演示。文件夹，就是知识库。">
+<meta property="og:title" content="两天研修，长成一座方法之城">
+<meta property="og:description" content="356 篇文章如何喂出一场教学演示——本地文件夹作为知识库的全景记录。">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23F7F2E9'/%3E%3Ccircle cx='16' cy='13' r='7' fill='%23C48A84'/%3E%3Crect x='10' y='20' width='12' height='3' fill='%2333454F'/%3E%3C/svg%3E">
+<style>
+/* ============================================================
+   设计规则来自演示范本本身（city DNA 负面清单）：
+   扁平色块 · 细轮廓线 · 无渐变 · 无重阴影 · 留白呼吸
+   ============================================================ */
+:root{
+  --paper:#F7F2E9;      /* 暖奶油底 */
+  --paper2:#EFE7D8;     /* 卡片奶油 */
+  --sky:#DCE7EE;        /* 淡粉蓝 */
+  --sky2:#C7D9E4;       /* 柔天蓝 */
+  --mist:#A9C2D2;       /* 雾蓝 */
+  --ink:#33454F;        /* 墨蓝 */
+  --ink2:#5C7078;       /* 次级墨 */
+  --ink3:#8CA0AA;       /* 弱墨 */
+  --sage:#9DB3A0;       /* 鼠尾草绿 */
+  --sageD:#7FA186;
+  --rose:#C48A84;       /* 灰玫红·仅点缀 */
+  --line:rgba(51,69,79,.18);
+  --serif:"Noto Serif SC","Songti SC","STSong","Source Han Serif SC","SimSun",serif;
+  --sans:"PingFang SC","Noto Sans SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+  --mono:"SF Mono",ui-monospace,Menlo,Consolas,"Courier New",monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  background:var(--paper);color:var(--ink);
+  font-family:var(--sans);font-size:16px;line-height:1.85;
+  -webkit-font-smoothing:antialiased;
+}
+::selection{background:var(--sky2);color:var(--ink)}
+a{color:var(--ink);text-decoration:none;border-bottom:1px solid var(--mist)}
+a:hover{border-bottom-color:var(--rose)}
+img{display:block;max-width:100%}
+
+.wrap{max-width:1080px;margin:0 auto;padding:0 32px}
+
+/* ---------- 微标题（英文小注） ---------- */
+.eyebrow{
+  font-family:var(--sans);font-size:11px;letter-spacing:.28em;
+  text-transform:uppercase;color:var(--rose);font-weight:600;
+}
+.chapter{padding:110px 0 0}
+.chapter-head{display:flex;align-items:baseline;gap:18px;border-top:1.5px solid var(--ink);padding-top:22px}
+.chapter-no{font-family:var(--serif);font-size:15px;color:var(--rose);letter-spacing:.1em;white-space:nowrap}
+.chapter-title{font-family:var(--serif);font-size:30px;font-weight:600;letter-spacing:.04em}
+.chapter-en{font-size:11px;letter-spacing:.24em;color:var(--ink3);text-transform:uppercase;margin-left:auto;white-space:nowrap}
+.chapter-lead{max-width:640px;color:var(--ink2);margin-top:14px;font-size:15.5px}
+
+/* ---------- 英雄区 ---------- */
+.hero{position:relative;margin-top:8px}
+.hero-art{display:block;width:100%;height:auto}
+.hero-copy{
+  position:absolute;left:clamp(20px,5vw,64px);top:clamp(18px,4.5vw,52px);
+  max-width:560px;
+}
+.hero-stats-below{display:flex;flex-wrap:wrap;margin-top:26px}
+.hero-copy .eyebrow{display:block;margin-bottom:14px}
+.hero-copy h1{
+  font-family:var(--serif);font-weight:600;
+  font-size:clamp(30px,4.6vw,52px);line-height:1.32;letter-spacing:.05em;
+}
+.hero-copy p{margin-top:16px;font-size:15px;color:var(--ink2);max-width:430px;line-height:1.9}
+.hero-stats{
+  display:flex;flex-wrap:wrap;gap:0;border:1.5px solid var(--ink);
+  background:var(--paper);margin-top:26px;max-width:640px;
+}
+.hero-stats .stat{
+  padding:14px 22px;min-width:128px;
+}
+.hero-stats .stat + .stat{border-left:1px solid var(--line)}
+.stat b{font-family:var(--serif);font-size:26px;font-weight:600;display:block;line-height:1.2}
+.stat span{font-size:12px;color:var(--ink2);letter-spacing:.12em}
+
+/* ---------- 幕间插画动画 ---------- */
+.cloud{animation:drift 26s ease-in-out infinite alternate}
+.cloud.c2{animation-duration:34s;animation-delay:-8s}
+.cloud.c3{animation-duration:30s;animation-delay:-15s}
+@keyframes drift{from{transform:translateX(0)}to{transform:translateX(34px)}}
+.ferry{animation:bob 4.5s ease-in-out infinite alternate}
+@keyframes bob{from{transform:translateY(0)}to{transform:translateY(3.5px)}}
+.tram-car{animation:tramrun 16s ease-in-out infinite alternate}
+@keyframes tramrun{from{transform:translateX(0)}to{transform:translateX(150px)}}
+.smoke{animation:puff 5s ease-in-out infinite}
+.smoke.s2{animation-delay:-1.7s}.smoke.s3{animation-delay:-3.4s}
+@keyframes puff{0%{opacity:0;transform:translateY(0)}30%{opacity:.55}100%{opacity:0;transform:translateY(-26px)}}
+.gear{animation:spin 24s linear infinite;transform-origin:center}
+@keyframes spin{to{transform:rotate(360deg)}}
+.flag-cloth{animation:flap 3.2s ease-in-out infinite alternate}
+@keyframes flap{from{transform:skewY(0deg)}to{transform:skewY(-4deg)}}
+
+/* ---------- 旅程时间线 ---------- */
+.tl{margin-top:46px;position:relative;padding-left:34px}
+.tl::before{content:"";position:absolute;left:8px;top:8px;bottom:8px;width:1.5px;background:var(--mist)}
+.tl-item{position:relative;padding:0 0 46px}
+.tl-item:last-child{padding-bottom:0}
+.tl-dot{
+  position:absolute;left:-34px;top:6px;width:17px;height:17px;border-radius:50%;
+  background:var(--paper);border:1.5px solid var(--ink);
+}
+.tl-dot::after{content:"";position:absolute;inset:4.5px;border-radius:50%;background:var(--rose)}
+.tl-date{font-family:var(--mono);font-size:12.5px;color:var(--rose);letter-spacing:.08em}
+.tl-title{font-family:var(--serif);font-size:21px;font-weight:600;margin:4px 0 10px;letter-spacing:.03em}
+.tl-body{color:var(--ink2);font-size:15px;max-width:660px}
+.tl-figs{display:block;margin-top:18px}
+.tl-figs img{width:100%;height:auto;display:block}
+.tl-figs img.wide{width:100%}
+figcaption{font-size:12px;color:var(--ink3);margin-top:8px;letter-spacing:.04em}
+
+/* 入库基准卡（终端样式） */
+.meta-card{
+  font-family:var(--mono);font-size:12.5px;line-height:2;background:var(--ink);
+  color:#D9E4EA;border-radius:6px;padding:18px 22px;margin-top:16px;max-width:560px;
+}
+.meta-card .k{color:#8FB3C7}
+.meta-card .ok{color:#9DB3A0}
+.meta-card .hl{color:#E8C9C4}
+
+/* 改词对照 */
+.diff-card{
+  display:inline-flex;align-items:center;gap:14px;margin-top:16px;
+  background:var(--paper2);border:1px solid var(--line);padding:12px 20px;font-size:15px;
+}
+.diff-card .old{text-decoration:line-through;text-decoration-color:var(--rose);color:var(--ink3)}
+.diff-card .arrow{color:var(--ink3)}
+.diff-card .new{font-family:var(--serif);font-weight:600;color:var(--sageD)}
+
+/* ---------- 地铁图 ---------- */
+.metro-wrap{position:relative;margin-top:42px;border:1.5px solid var(--ink);background:var(--paper)}
+.metro-wrap svg{display:block;width:100%;height:auto}
+.metro-hint{
+  position:absolute;left:20px;top:16px;font-size:12px;color:var(--ink3);letter-spacing:.06em;
+}
+.metro-legend{display:flex;flex-wrap:wrap;gap:10px 26px;padding:16px 20px;border-top:1px solid var(--line)}
+.metro-legend .lg{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--ink2)}
+.metro-legend .swatch{width:22px;height:4px;border-radius:2px}
+#station-tip{
+  position:absolute;pointer-events:none;z-index:5;display:none;
+  max-width:280px;background:var(--ink);color:#EDF2F5;font-size:12.5px;line-height:1.7;
+  padding:10px 14px;border-radius:6px;
+}
+#station-tip b{display:block;font-size:13px;margin-bottom:2px}
+.station{cursor:pointer}
+.station circle.dot{transition:r .15s ease}
+.station:hover circle.dot{r:9}
+.station text{font-family:var(--sans);fill:var(--ink2);font-size:11.5px;paint-order:stroke;stroke:#F7F2E9;stroke-width:4px;stroke-linejoin:round}
+.station:hover text{fill:var(--ink);font-weight:600}
+.station-detail{
+  margin-top:0;border-top:1px solid var(--line);padding:24px 20px 26px;background:var(--paper2);
+  min-height:120px;
+}
+.station-detail .sd-line{display:flex;align-items:center;gap:10px;font-size:13px;color:var(--ink2)}
+.station-detail .sd-dot{width:10px;height:10px;border-radius:50%}
+.station-detail h3{font-family:var(--serif);font-size:21px;font-weight:600;margin:8px 0 8px}
+.station-detail p{max-width:720px;color:var(--ink2);font-size:14.5px}
+.station-detail .sd-meta{margin-top:12px;font-size:12.5px;color:var(--ink3);display:flex;flex-wrap:wrap;gap:6px 22px;font-family:var(--mono)}
+.station-detail .sd-meta a{color:var(--sageD);border-bottom-color:var(--sage)}
+
+/* ---------- 三条路 ---------- */
+.paths{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:44px}
+.path-card{border:1.5px solid var(--ink);background:var(--paper);padding:24px 24px 20px;position:relative}
+.path-card .pno{font-family:var(--serif);font-size:15px;color:var(--rose);letter-spacing:.15em}
+.path-card h3{font-family:var(--serif);font-size:20px;font-weight:600;margin:6px 0 6px}
+.path-card .key{font-size:13px;color:var(--ink2);border-left:2.5px solid var(--sage);padding-left:10px;margin:10px 0 14px}
+.path-card ul{list-style:none}
+.path-card li{font-size:13.5px;color:var(--ink2);padding:9px 0;border-top:1px dashed var(--line);line-height:1.7}
+.path-card li b{color:var(--ink);font-weight:600;display:block}
+.paths-note{margin-top:18px;font-size:14px;color:var(--ink2)}
+.paths-note em{font-style:normal;color:var(--rose)}
+
+/* ---------- 风格墙 ---------- */
+.vol-wall{display:grid;grid-template-columns:repeat(7,1fr);gap:12px;margin-top:40px}
+.vol-cell{position:relative}
+.vol-cell img{width:100%;aspect-ratio:4/5;object-fit:cover;border:1px solid var(--line);background:#fff;padding:4px;transition:transform .25s ease}
+.vol-cell:hover img{transform:translateY(-4px)}
+.vol-cell span{display:block;text-align:center;font-family:var(--mono);font-size:10.5px;color:var(--ink3);margin-top:6px;letter-spacing:.06em}
+.vol-cap{margin-top:16px;font-size:13.5px;color:var(--ink2);max-width:720px}
+
+/* ---------- 视频区 ---------- */
+.video-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:44px}
+.video-card{border:1.5px solid var(--ink);background:var(--paper)}
+.video-card video{width:100%;aspect-ratio:16/10;object-fit:cover;display:block;background:var(--ink)}
+.video-card .vc-body{padding:16px 18px 18px}
+.video-card h4{font-family:var(--serif);font-size:16.5px;font-weight:600}
+.video-card p{font-size:13px;color:var(--ink2);margin-top:6px;line-height:1.75}
+.video-card .vc-src{margin-top:10px;font-family:var(--mono);font-size:11px;color:var(--ink3);letter-spacing:.02em}
+.video-note{margin-top:20px;font-size:14px;color:var(--ink2)}
+.video-note em{font-style:normal;font-family:var(--serif);font-weight:600;color:var(--ink);border-bottom:2px solid var(--rose)}
+
+/* ---------- 两条生产线 ---------- */
+.lines{margin-top:44px;display:grid;gap:56px}
+.pl-row{position:relative}
+.pl-row h3{font-family:var(--serif);font-size:18px;font-weight:600;display:flex;align-items:baseline;gap:12px}
+.pl-row h3 small{font-size:11px;letter-spacing:.22em;color:var(--ink3);font-family:var(--sans)}
+.pl-track{display:flex;align-items:stretch;gap:0;margin-top:16px;flex-wrap:nowrap}
+.pl-step{
+  flex:1;min-width:0;background:var(--paper);border:1.5px solid var(--ink);
+  padding:13px 10px;text-align:center;font-size:14px;position:relative;
+  clip-path:polygon(0 0,calc(100% - 14px) 0,100% 50%,calc(100% - 14px) 100%,0 100%,14px 50%);
+  margin-right:-14px;
+}
+.pl-row.b .pl-step{background:var(--paper2)}
+.pl-step:first-child{clip-path:polygon(0 0,calc(100% - 14px) 0,100% 50%,calc(100% - 14px) 100%,0 100%)}
+.pl-step b{display:block;font-family:var(--serif);font-size:14.5px}
+.pl-step span{font-size:11px;color:var(--ink3);letter-spacing:.06em}
+.pl-links{display:flex;justify-content:center;gap:clamp(20px,8vw,110px);margin-top:20px}
+.pl-link{position:relative;text-align:center;font-size:12px;color:var(--ink2);width:130px}
+.pl-link::before{content:"";position:absolute;left:50%;top:-22px;width:1.5px;height:20px;background:var(--mist)}
+.pl-link i{position:absolute;left:50%;top:-26px;width:5px;height:5px;border-radius:50%;background:var(--rose);transform:translateX(-50%)}
+.pl-redline{
+  margin-top:34px;border:1.5px dashed var(--rose);padding:14px 22px;font-size:13.5px;color:var(--ink2);
+  display:flex;gap:14px;align-items:baseline;justify-content:center;flex-wrap:wrap;
+}
+.pl-redline b{color:var(--rose);font-family:var(--serif);letter-spacing:.1em}
+
+/* ---------- 增长图 ---------- */
+.growth{display:grid;grid-template-columns:1fr 300px;gap:40px;margin-top:44px;align-items:end}
+.chart-wrap{position:relative}
+.chart-wrap svg{display:block;width:100%;height:auto}
+.chart-tip{
+  position:absolute;pointer-events:none;display:none;background:var(--ink);color:#EDF2F5;
+  font-size:12px;padding:6px 10px;border-radius:5px;white-space:nowrap;
+}
+.stat-tiles{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.tile{border:1.5px solid var(--ink);background:var(--paper);padding:16px 18px}
+.tile b{font-family:var(--serif);font-size:28px;font-weight:600;display:block;line-height:1.25}
+.tile span{font-size:12px;color:var(--ink2);letter-spacing:.1em}
+.growth-note{margin-top:22px;font-size:14px;color:var(--ink2);max-width:680px}
+
+/* ---------- 结语 ---------- */
+.coda{padding:130px 0 40px;text-align:center}
+.coda .big{
+  font-family:var(--serif);font-size:clamp(24px,3.4vw,36px);font-weight:600;
+  letter-spacing:.06em;line-height:1.9;
+}
+.coda .big .r{color:var(--rose)}
+.coda .sub{margin-top:26px;font-size:15.5px;color:var(--ink2)}
+footer{border-top:1.5px solid var(--ink);margin-top:96px;padding:30px 0 46px;font-size:12.5px;color:var(--ink3);line-height:2}
+footer .f-grid{display:flex;justify-content:space-between;gap:40px;flex-wrap:wrap}
+footer code{font-family:var(--mono);font-size:11.5px;background:var(--paper2);padding:1px 6px;border-radius:3px}
+
+/* ---------- 进场 ---------- */
+.reveal{opacity:0;transform:translateY(14px);transition:opacity .7s ease,transform .7s ease}
+.reveal.in{opacity:1;transform:none}
+.pl-step{opacity:0;transform:translateX(-10px);transition:opacity .5s ease,transform .5s ease}
+.lines.armed .pl-step{opacity:1;transform:none}
+.pl-link{opacity:0;transition:opacity .6s ease .2s}
+.lines.armed .pl-link{opacity:1}
+@media (prefers-reduced-motion:reduce){
+  .cloud,.ferry,.tram-car,.smoke,.gear,.flag-cloth{animation:none}
+  .reveal,.pl-step,.pl-link{transition:none;opacity:1;transform:none}
+}
+
+/* ---------- 响应式 ---------- */
+@media (max-width:900px){
+  .paths{grid-template-columns:1fr}
+  .video-grid{grid-template-columns:1fr}
+  .vol-wall{grid-template-columns:repeat(4,1fr)}
+  .growth{grid-template-columns:1fr}
+  .pl-track{flex-wrap:wrap;gap:10px}
+  .pl-step{margin-right:0;clip-path:none;border-radius:4px;min-width:44%}
+  .chapter-en{display:none}
+  .hero-stats .stat{min-width:104px;padding:12px 14px}
+}
+/* ---------- 线路一览信息板 ---------- */
+.lines-index{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:26px}
+.li-card{background:var(--paper2);border:1px solid var(--line);border-radius:10px;padding:18px 20px}
+.li-head{display:flex;align-items:baseline;gap:10px;margin-bottom:8px}
+.li-dot{width:12px;height:12px;border-radius:3px;flex:none;position:relative;top:1px}
+.li-name{font-weight:700;font-size:16px;color:var(--ink)}
+.li-en{font-size:10px;letter-spacing:2px;color:var(--ink3)}
+.li-sum{font-size:13px;color:var(--ink2);margin-bottom:12px;line-height:1.6}
+.li-stations{display:flex;flex-direction:column;gap:8px}
+.li-st{display:flex;gap:10px;align-items:baseline}
+.li-st b{font-size:13.5px;color:var(--ink);white-space:nowrap}
+.li-st span{font-size:12px;color:var(--ink2);line-height:1.55}
+@media (max-width:760px){.lines-index{grid-template-columns:1fr}}
+
+</style>
+</head>
+<body>
+
+<!-- ================= 英雄区：知识之城天际线 ================= -->
+<header class="hero wrap">
+  <svg class="hero-art" viewBox="0 0 1200 592" role="img" aria-label="扁平插画风格的研修班之城天际线：需求港、课程街、中央站、方法巷、作品区升起画框、工具桥与复用湖，学员小人穿行其间，天空留白处是标题">
+    <!-- 天空（左上大片留白 = 字体安全负空间） -->
+    <rect width="1200" height="575" fill="#DCE7EE"/>
+    <circle cx="1040" cy="84" r="30" fill="#F7F2E9" stroke="#33454F" stroke-width="1.5"/>
+    <!-- 云 -->
+    <g class="cloud" fill="#EDF3F6" stroke="#33454F" stroke-width="1.5">
+      <ellipse cx="690" cy="70" rx="46" ry="14"/><ellipse cx="726" cy="60" rx="26" ry="11"/>
+    </g>
+    <g class="cloud c2" fill="#EDF3F6" stroke="#33454F" stroke-width="1.5">
+      <ellipse cx="912" cy="128" rx="34" ry="11"/><ellipse cx="940" cy="120" rx="20" ry="8"/>
+    </g>
+    <g class="cloud c3" fill="#EDF3F6" stroke="#33454F" stroke-width="1.5">
+      <ellipse cx="780" cy="168" rx="30" ry="10"/><ellipse cx="802" cy="161" rx="17" ry="7"/>
+    </g>
+    <!-- 飞鸟 -->
+    <path d="M846,98 q6,-6 12,0 M862,98 q6,-6 12,0" fill="none" stroke="#33454F" stroke-width="1.5"/>
+    <path d="M920,120 q5,-5 10,0 M934,120 q5,-5 10,0" fill="none" stroke="#33454F" stroke-width="1.5"/>
+
+    <!-- 地面（整体下移，给标题让出天空） -->
+    <rect y="484" width="1200" height="6" fill="#C7D9E4"/>
+    <line x1="0" y1="490" x2="1200" y2="490" stroke="#33454F" stroke-width="1.5"/>
+    <!-- 水面 -->
+    <rect y="490" width="1200" height="102" fill="#A9C2D2"/>
+    <path d="M60,518 h46 M150,544 h34 M300,524 h40 M520,546 h36 M700,520 h44 M880,542 h30 M1050,522 h40" stroke="#F7F2E9" stroke-width="1.5" opacity=".7"/>
+
+    <!-- ── 源头港（血缘）── -->
+    <g transform="translate(0,116)">
+      <rect x="52" y="282" width="26" height="86" fill="#F7F2E9" stroke="#33454F" stroke-width="1.5"/>
+      <rect x="58" y="300" width="14" height="10" fill="#C48A84"/>
+      <rect x="58" y="326" width="14" height="10" fill="#C48A84"/>
+      <rect x="58" y="352" width="14" height="10" fill="#C48A84"/>
+      <path d="M38,282 h54 l-27,-26 z" fill="#C48A84" stroke="#33454F" stroke-width="1.5"/>
+      <circle cx="65" cy="272" r="3.5" fill="#F7F2E9" stroke="#33454F" stroke-width="1.5"/>
+      <!-- 栈桥与小船 -->
+      <rect x="96" y="352" width="72" height="5" fill="#EFE7D8" stroke="#33454F" stroke-width="1.5"/>
+      <path d="M132,352 v-16 h18 l4,16 z" fill="#9DB3A0" stroke="#33454F" stroke-width="1.5"/>
+      <line x1="141" y1="336" x2="141" y2="322" stroke="#33454F" stroke-width="1.5"/>
+      <path d="M96,374 l10,14 h34 l10,-14 z" fill="#F7F2E9" stroke="#33454F" stroke-width="1.5" class="ferry"/>
+      <text x="106" y="448" font-size="11" letter-spacing="3" fill="#33454F" opacity=".75" font-family="PingFang SC">需求港 · LEARNERS</text>
+    </g>
+
+    <!-- ── 范本街（同类范本）── -->
+    <g stroke="#33454F" stroke-width="1.5" transform="translate(0,116)">
+      <rect x="196" y="278" width="52" height="90" fill="#EFE7D8"/>
+      <path d="M190,278 h64 l-8,-14 h-48 z" fill="#C7D9E4"/>
+      <rect x="212" y="300" width="20" height="26" fill="#F7F2E9"/>
+      <rect x="262" y="252" width="58" height="116" fill="#F7F2E9"/>
+      <path d="M256,252 h70 l-9,-16 h-52 z" fill="#C48A84"/>
+      <rect x="276" y="276" width="30" height="22" fill="#DCE7EE"/>
+      <rect x="276" y="316" width="30" height="34" fill="#DCE7EE"/>
+      <rect x="334" y="288" width="48" height="80" fill="#EFE7D8"/>
+      <path d="M328,288 h60 l-8,-13 h-44 z" fill="#9DB3A0"/>
+      <rect x="348" y="308" width="20" height="24" fill="#F7F2E9"/>
+      <line x1="196" y1="352" x2="382" y2="352" stroke-opacity=".4"/>
+      <text x="220" y="448" font-size="11" letter-spacing="3" fill="#33454F" opacity=".75" font-family="PingFang SC">课程街 · CURRICULUM</text>
+    </g>
+
+    <!-- ── 中央站（今天的演示）── -->
+    <g transform="translate(0,116)">
+      <rect x="430" y="296" width="132" height="72" fill="#F7F2E9" stroke="#33454F" stroke-width="1.5"/>
+      <rect x="446" y="318" width="22" height="50" fill="#DCE7EE"/>
+      <rect x="484" y="318" width="22" height="50" fill="#DCE7EE"/>
+      <rect x="522" y="318" width="22" height="50" fill="#DCE7EE"/>
+      <rect x="486" y="264" width="22" height="32" fill="#EFE7D8" stroke="#33454F" stroke-width="1.5"/>
+      <path d="M472,264 a25,25 0 0 1 50,0 z" fill="#F7F2E9" stroke="#33454F" stroke-width="1.5"/>
+      <circle cx="497" cy="272" r="8" fill="#F7F2E9" stroke="#33454F" stroke-width="1.5"/>
+      <line x1="497" y1="272" x2="497" y2="266" stroke="#33454F" stroke-width="1.5"/>
+      <line x1="497" y1="272" x2="502" y2="274" stroke="#33454F" stroke-width="1.5"/>
+      <path d="M497,239 v-9" stroke="#33454F" stroke-width="1.5"/>
+      <path class="flag-cloth" d="M497,230 h18 l-5,5 5,5 h-18 z" fill="#C48A84" stroke="#33454F" stroke-width="1.5"/>
+      <text x="497" y="290" text-anchor="middle" font-size="13" letter-spacing="2" fill="#33454F" font-family="Songti SC" font-weight="600">九·一九</text>
+      <text x="452" y="448" font-size="11" letter-spacing="3" fill="#33454F" opacity=".75" font-family="PingFang SC">中央站 · THE WORKSHOP</text>
+    </g>
+
+    <!-- ── 方法巷（三条路）── -->
+    <g transform="translate(0,116)">
+      <path d="M580,368 q30,-18 60,-6 t60,6" fill="none" stroke="#33454F" stroke-width="1.5" stroke-dasharray="5 5"/>
+      <g stroke="#33454F" stroke-width="1.5">
+        <line x1="596" y1="368" x2="596" y2="330"/>
+        <path d="M588,330 h22 l5,7 -5,7 h-22 z" fill="#9DB3A0"/>
+        <line x1="652" y1="362" x2="652" y2="322"/>
+        <path d="M644,322 h22 l5,7 -5,7 h-22 z" fill="#C7D9E4"/>
+        <line x1="706" y1="366" x2="706" y2="326"/>
+        <path d="M698,326 h22 l5,7 -5,7 h-22 z" fill="#C48A84"/>
+      </g>
+      <text x="588" y="448" font-size="11" letter-spacing="3" fill="#33454F" opacity=".75" font-family="PingFang SC">方法巷 · THREE PATHS</text>
+      <!-- 电车 -->
+      <g class="tram-car">
+        <rect x="568" y="344" width="44" height="22" rx="5" fill="#F7F2E9" stroke="#33454F" stroke-width="1.5"/>
+        <rect x="574" y="349" width="10" height="9" fill="#DCE7EE"/>
+        <rect x="590" y="349" width="10" height="9" fill="#DCE7EE"/>
+        <circle cx="578" cy="368" r="3" fill="#33454F"/><circle cx="602" cy="368" r="3" fill="#33454F"/>
+      </g>
+    </g>
+
+    <!-- ── 产业区（行业生产线）── -->
+    <g transform="translate(0,116)">
+      <path d="M748,300 h34 v-16 l14,10 v-10 l14,10 v-10 l14,10 v-10 l14,10 v16 h34" fill="none" stroke="#33454F" stroke-width="1.5"/>
+      <rect x="748" y="300" width="124" height="68" fill="#EFE7D8" stroke="#33454F" stroke-width="1.5"/>
+      <rect x="762" y="318" width="26" height="50" fill="#DCE7EE" stroke="#33454F" stroke-width="1.5"/>
+      <rect x="800" y="318" width="26" height="50" fill="#DCE7EE" stroke="#33454F" stroke-width="1.5"/>
+      <rect x="838" y="318" width="20" height="50" fill="#DCE7EE" stroke="#33454F" stroke-width="1.5"/>
+      <!-- 作品从车间升起:三幅画框 -->
+      <g stroke="#33454F" stroke-width="1.5" class="art-rise">
+        <rect x="846" y="252" width="24" height="18" fill="#F7F2E9"/>
+        <rect x="850" y="256" width="16" height="10" fill="#C48A84" stroke="none"/>
+        <rect x="872" y="230" width="20" height="15" fill="#F7F2E9"/>
+        <rect x="875" y="233" width="14" height="9" fill="#9DB3A0" stroke="none"/>
+        <rect x="842" y="216" width="16" height="12" fill="#F7F2E9"/>
+        <rect x="845" y="219" width="10" height="6" fill="#C7D9E4" stroke="none"/>
+      </g>
+      <g transform="translate(788,286)">
+        <g class="gear">
+          <circle r="9" fill="#F7F2E9" stroke="#33454F" stroke-width="1.5"/>
+          <circle r="3" fill="#C48A84" stroke="#33454F" stroke-width="1.5"/>
+          <path d="M0,-13 v-4 M9.2,-9.2 l2.8,-2.8 M13,0 h4 M9.2,9.2 l2.8,2.8 M0,13 v4 M-9.2,9.2 l-2.8,2.8 M-13,0 h-4 M-9.2,-9.2 l-2.8,-2.8" stroke="#33454F" stroke-width="1.5"/>
+        </g>
+      </g>
+      <text x="784" y="448" font-size="11" letter-spacing="3" fill="#33454F" opacity=".75" font-family="PingFang SC">作品区 · OUTPUTS</text>
+    </g>
+
+    <!-- ── 工程桥（SVG 路线）── -->
+    <g stroke="#33454F" stroke-width="1.5" transform="translate(0,116)">
+      <path d="M892,368 h128" />
+      <path d="M892,368 q20,-26 40,0 M932,368 q20,-26 40,0 M972,368 q20,-26 40,0" fill="none"/>
+      <line x1="900" y1="368" x2="900" y2="322"/>
+      <line x1="1012" y1="368" x2="1012" y2="322"/>
+      <rect x="888" y="314" width="136" height="9" fill="#C7D9E4"/>
+      <rect x="928" y="286" width="56" height="28" fill="#9DB3A0"/>
+      <path d="M922,286 h68 v-9 l-10,-8 h-48 l-10,8 z" fill="#F7F2E9"/>
+      <rect x="940" y="294" width="12" height="12" fill="#F7F2E9"/>
+      <rect x="960" y="294" width="12" height="12" fill="#F7F2E9"/>
+      <text x="906" y="448" font-size="11" letter-spacing="3" fill="#33454F" opacity=".75" font-family="PingFang SC">工具桥 · TOOLS</text>
+    </g>
+
+    <!-- ── 镜像湖（同构）── -->
+    <g transform="translate(0,116)">
+      <rect x="1040" y="382" width="160" height="20" fill="#A9C2D2"/>
+      <rect x="1058" y="288" width="76" height="80" fill="#9DB3A0" stroke="#33454F" stroke-width="1.5"/>
+      <rect x="1066" y="308" width="12" height="60" fill="#F7F2E9" stroke="#33454F" stroke-width="1"/>
+      <rect x="1090" y="308" width="12" height="60" fill="#F7F2E9" stroke="#33454F" stroke-width="1"/>
+      <rect x="1114" y="308" width="12" height="60" fill="#F7F2E9" stroke="#33454F" stroke-width="1"/>
+      <rect x="1058" y="278" width="76" height="10" fill="#C48A84" stroke="#33454F" stroke-width="1.5"/>
+      <g opacity=".5" transform="translate(0,778) scale(1,-1)">
+        <rect x="1058" y="292" width="76" height="72" fill="#9DB3A0"/>
+        <rect x="1066" y="308" width="12" height="52" fill="#F7F2E9"/>
+        <rect x="1090" y="308" width="12" height="52" fill="#F7F2E9"/>
+        <rect x="1114" y="308" width="12" height="52" fill="#F7F2E9"/>
+      </g>
+      <path d="M1052,392 h20 M1088,398 h26 M1140,392 h18" stroke="#F7F2E9" stroke-width="1.5" opacity=".9"/>
+      <text x="1058" y="448" font-size="11" letter-spacing="3" fill="#33454F" opacity=".75" font-family="PingFang SC">复用湖 · AFTERWARDS</text>
+    </g>
+
+    <!-- ── 树与小人 ── -->
+    <g stroke="#33454F" stroke-width="1.5" transform="translate(0,116)">
+      <line x1="184" y1="368" x2="184" y2="344"/><circle cx="184" cy="336" r="11" fill="#9DB3A0"/>
+      <line x1="410" y1="368" x2="410" y2="350"/><circle cx="410" cy="343" r="9" fill="#9DB3A0"/>
+      <line x1="572" y1="368" x2="572" y2="348"/><circle cx="572" cy="341" r="9" fill="#9DB3A0"/>
+      <line x1="732" y1="368" x2="732" y2="346"/><circle cx="732" cy="338" r="10" fill="#9DB3A0"/>
+    </g>
+    <!-- 行走的人 -->
+    <g fill="#33454F" transform="translate(0,116)">
+      <g transform="translate(236,346)">
+        <circle cx="0" cy="0" r="3.4"/><path d="M0,4 v11 l-3,8 M0,15 l3,8 M-3,8 l-6,4 M3,8 l6,-2"/>
+      </g>
+      <!-- 遛狗的人 -->
+      <g transform="translate(600,346)">
+        <circle cx="0" cy="0" r="3.4"/><path d="M0,4 v11 l-3,8 M0,15 l3,8 M-3,8 l-6,4 M3,8 l5,3"/>
+        <path d="M8,23 l7,-1 2,3 -3,2 -6,0 z" stroke="#33454F" stroke-width="1.2"/>
+        <line x1="6" y1="12" x2="9" y2="23" stroke="#33454F" stroke-width="1"/>
+      </g>
+      <!-- 坐着读书的人 -->
+      <g transform="translate(342,344)">
+        <circle cx="0" cy="0" r="3.4"/><path d="M0,4 v9 q0,4 5,4 h5 M0,13 l-6,10 M2,13 l4,10"/>
+        <rect x="2" y="10" width="9" height="5" rx="1" fill="#C48A84" stroke="#33454F" stroke-width="1"/>
+      </g>
+      <!-- 拍照的人 -->
+      <g transform="translate(766,346)">
+        <circle cx="0" cy="0" r="3.4"/><path d="M0,4 v11 l-3,8 M0,15 l3,8 M-3,8 l-7,3 M3,8 l7,-3"/>
+        <rect x="8" y="4" width="8" height="6" rx="1.5" fill="#F7F2E9" stroke="#33454F" stroke-width="1.4"/>
+      </g>
+      <!-- 背电脑的学员(走向中央站) -->
+      <g transform="translate(398,346)" fill="#33454F">
+        <circle cx="0" cy="0" r="3.4"/><path d="M0,4 v11 l-3,8 M0,15 l3,8 M-3,8 l-6,4 M3,8 l6,-2"/>
+        <rect x="-8" y="9" width="10" height="7" rx="1.5" fill="#C48A84" stroke="#33454F" stroke-width="1.2"/>
+      </g>
+      <!-- 举着作品的学员(从作品区走出) -->
+      <g transform="translate(908,346)" fill="#33454F">
+        <circle cx="0" cy="0" r="3.4"/><path d="M0,4 v11 l-3,8 M0,15 l3,8 M-3,8 l-7,5 M3,8 l7,5"/>
+        <rect x="8" y="-8" width="14" height="11" fill="#F7F2E9" stroke="#33454F" stroke-width="1.2"/>
+        <rect x="10.5" y="-5.5" width="9" height="6" fill="#C2A36B" stroke="none"/>
+      </g>
+      <!-- 骑车的人 -->
+      <g transform="translate(966,332)" stroke="#33454F" stroke-width="1.4" fill="none">
+        <circle cx="0" cy="0" r="3.2" fill="#33454F" stroke="none"/>
+        <path d="M0,3 v8 l7,5 M0,11 l-6,4 M7,16 l5,-2"/>
+        <circle cx="-5" cy="32" r="6"/><circle cx="11" cy="32" r="6"/>
+        <path d="M-5,32 L2,16 L11,32 M2,16 l6,-3"/>
+      </g>
+    </g>
+  </svg>
+
+  <div class="hero-copy">
+    <span class="eyebrow">Workshop, as a City</span>
+    <h1>两天研修，<br>长成一座方法之城</h1>
+    <p>37 位来自教育、科研、政务、企业的学员——零编程基础，两天实战，四类成果。一场研修班，如何让「用 AI 聊天」变成「用 AI 做事」。</p>
+  </div>
+  <div class="hero-stats hero-stats-below" role="list">
+    <div class="stat" role="listitem"><b>2</b><span>天集中实战</span></div>
+    <div class="stat" role="listitem"><b>37</b><span>位跨领域学员</span></div>
+    <div class="stat" role="listitem"><b>4</b><span>类真实成果</span></div>
+    <div class="stat" role="listitem"><b>0</b><span>行代码门槛</span></div>
+  </div>
+</header>
+
+<main class="wrap">
+
+<!-- ================= 第一幕 · 一条帖子的旅程 ================= -->
+<section class="chapter reveal" id="journey">
+  <div class="chapter-head">
+    <span class="chapter-no">第一幕</span>
+    <h2 class="chapter-title">一位学员的两天</h2>
+    <span class="chapter-en">A Learner's Two Days</span>
+  </div>
+  <p class="chapter-lead">研修班的课程不是从讲义开始的——是从每位学员带来的真实任务开始的。这是一位学员的完整两天。</p>
+
+  <div class="tl">
+    <div class="tl-item reveal">
+      <span class="tl-dot"></span>
+      <div class="tl-date">2026 · 09 · 19 AM</div>
+      <div class="tl-title">带着真实需求进教室</div>
+      <p class="tl-body">37 位学员，每人有一个要解决的真问题：教务表格、教学设计、汇报材料、宣传素材。研修班的原则——<b>真实任务就是练习题</b>。</p>
+      <div class="tl-figs">
+        <img src="assets/workshop/workshop-cover.png" alt="第2期研修班全体学员合影" class="wide">
+      </div>
+      <figcaption>北京大学教育学院氛围编程实战研修班（第2期）全体学员</figcaption>
+    </div>
+
+    <div class="tl-item reveal">
+      <span class="tl-dot"></span>
+      <div class="tl-date">2026 · 09 · 19 AM</div>
+      <div class="tl-title">学方法：教学游戏四步协作</div>
+      <p class="tl-body">刘雨昕老师从人工智能与学习科学的基础讲起；吴腾腾老师带来「学习科学 × 用 HTML 设计教学游戏」——<b>讨论、规划、执行、迭代</b>，四步当场走通。</p>
+      <div class="tl-figs">
+        <img src="assets/workshop/workshop-teacher-1.jpg" alt="教学游戏专题授课">
+      </div>
+      <figcaption>从教学目标出发，把一个想法变成可运行的游戏</figcaption>
+    </div>
+
+    <div class="tl-item reveal">
+      <span class="tl-dot"></span>
+      <div class="tl-date">2026 · 09 · 19 PM</div>
+      <div class="tl-title">练数据：一张表变成一张图</div>
+      <p class="tl-body">WorkBuddy 等 AI 工具完成数据清洗、分析与交互式图表生成。有学员当场把教务表格做成动态更新的框架——「记录数据和提取数据的效率大大提高」。</p>
+      <div class="tl-figs">
+        <img src="assets/workshop/workshop-teacher-2.jpg" alt="数据分析与可视化授课">
+      </div>
+      <figcaption>用自然语言驱动清洗、分析、出图</figcaption>
+    </div>
+
+    <div class="tl-item reveal">
+      <span class="tl-dot"></span>
+      <div class="tl-date">2026 · 09 · 20</div>
+      <div class="tl-title">综合实战：多个智能体，一条流水线</div>
+      <p class="tl-body">从数据采集到成果汇报的完整流程，多智能体各司其职——协同完成文章下载、PPT 制作、公文写作和素材生产。</p>
+      <div class="tl-figs">
+        <img src="assets/workshop/workshop-class.jpg" alt="研修班课堂现场">
+      </div>
+      <figcaption>真实任务进入课堂，结果以可运行、可展示的作品呈现</figcaption>
+    </div>
+
+    <div class="tl-item reveal">
+      <span class="tl-dot"></span>
+      <div class="tl-date">2026 · 09 · 20 PM</div>
+      <div class="tl-title">展示与沉淀</div>
+      <p class="tl-body">教学游戏、数据分析、品牌海报或 SKILL 工作流——每位学员汇总出一份数字化学习成果，并把做法写成<b>可复用的规则</b>。课程结束，真实任务中的人机协作才刚刚开始。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 第二幕 · 地铁图 ================= -->
+<section class="chapter reveal" id="map">
+  <div class="chapter-head">
+    <span class="chapter-no">第二幕</span>
+    <h2 class="chapter-title">六条线路，一场研修</h2>
+    <span class="chapter-en">The Relationship Map</span>
+  </div>
+  <p class="chapter-lead">一场研修班，如何装进一座城？把两天里的人、课、方法、工具、成果与课后支持画成六条地铁线路：中央站是研修班本身，<b>点击任一站点</b>，看它和中央站的连接说明。</p>
+
+  <div class="metro-wrap reveal">
+    <span class="metro-hint">● 点击站点查看关系说明</span>
+    <div id="metro-mount"></div>
+    <div id="station-tip"></div>
+    <div class="metro-legend" id="metro-legend"></div>
+    <div class="station-detail" id="station-detail">
+      <div class="sd-line"><span style="color:var(--ink3)">中央站</span>｜从任一条线的任一站上车，都回到这两天的课堂。</div>
+    </div>
+    <div class="lines-index" id="lines-index"></div>
+  </div>
+</section>
+
+<!-- ================= 第三幕 · 三条路 ================= -->
+<section class="chapter reveal" id="paths">
+  <div class="chapter-head">
+    <span class="chapter-no">第三幕</span>
+    <h2 class="chapter-title">三条路，都有人走通过</h2>
+    <span class="chapter-en">Three Paths, Proven</span>
+  </div>
+  <p class="chapter-lead">研修班教的方法论核心，是「得到提示词的三条路」：自己写、反复试；照模板改；从成品反推。三条路学员都在两天里走了一遍。</p>
+
+  <div class="paths">
+    <div class="path-card reveal" id="path-1">
+      <div class="pno">路 ①</div>
+      <h3>自己写，反复试</h3>
+      <div class="key">每一轮只改一处，才知道是哪句话起了作用。</div>
+      <ul id="path1-list"></ul>
+    </div>
+    <div class="path-card reveal" id="path-2">
+      <div class="pno">路 ②</div>
+      <h3>照模板改</h3>
+      <div class="key">先拆「固定的一半」和「要换的一半」，只换要换的。</div>
+      <ul id="path2-list"></ul>
+    </div>
+    <div class="path-card reveal" id="path-3">
+      <div class="pno">路 ③</div>
+      <h3>从成品反推</h3>
+      <div class="key">反推稿与真范本的差距，才是最值得学的新知。</div>
+      <ul id="path3-list"></ul>
+    </div>
+  </div>
+  <p class="paths-note reveal">三条路常常连着走：<em>反推学来写法 → 攒成自己的模板 → 以后照着改。</em>学员带走的不是三条路的笔记，是三条路各自走过的手感。</p>
+</section>
+
+<!-- ================= 第四幕 · 两条生产线 ================= -->
+<section class="chapter reveal" id="lines">
+  <div class="chapter-head">
+    <span class="chapter-no">第四幕</span>
+    <h2 class="chapter-title">课堂内外，同一种结构</h2>
+    <span class="chapter-en">Two Lines, One Shape</span>
+  </div>
+  <p class="chapter-lead">把「课堂两天」和「课后日常」并排放——会发现它们是同构的：选任务对回岗任务，四步协作对工作流复用，互评检验对复盘沉淀。</p>
+
+  <div class="lines" id="pipelines">
+    <div class="pl-row a">
+      <h3>课堂线 <small>THE WORKSHOP · 9.19–20</small></h3>
+      <div class="pl-track">
+        <div class="pl-step"><b>选真任务</b><span>每人一个真问题</span></div>
+        <div class="pl-step"><b>拆方法</b><span>四步协作</span></div>
+        <div class="pl-step"><b>母版＋要素</b><span>固定／要换</span></div>
+        <div class="pl-step"><b>当场产出</b><span>四类成果</span></div>
+        <div class="pl-step"><b>互评检验</b><span>最后一道是眼睛</span></div>
+      </div>
+    </div>
+    <div class="pl-links">
+      <div class="pl-link"><i></i>选真任务 ↔ 回岗任务</div>
+      <div class="pl-link"><i></i>四步协作 ↔ 工作流复用</div>
+      <div class="pl-link"><i></i>互评检验 ↔ 复盘沉淀</div>
+      <div class="pl-link"><i></i>课程智能体 ↔ 学习社群</div>
+    </div>
+    <div class="pl-row b">
+      <h3>课后线 <small>AFTER CLASS · EVERY DAY</small></h3>
+      <div class="pl-track">
+        <div class="pl-step"><b>回岗任务</b><span>真实工作</span></div>
+        <div class="pl-step"><b>调用智能体</b><span>开放一个月</span></div>
+        <div class="pl-step"><b>复用工作流</b><span>规则可直接调</span></div>
+        <div class="pl-step"><b>社群支持</b><span>长期在线</span></div>
+        <div class="pl-step"><b>复盘沉淀</b><span>成果变资产</span></div>
+      </div>
+    </div>
+    <div class="pl-redline">
+      <b>红线对红线</b>
+      <span>课堂线：「不编造、不侵权，验收的最后一道是你的眼睛」</span>
+      <span>课后线：「一次成功，写成规则，反复调用」——同一件事的两种说法。</span>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 第五幕 · 增长 ================= -->
+<section class="chapter reveal" id="growth">
+  <div class="chapter-head">
+    <span class="chapter-no">第五幕</span>
+    <h2 class="chapter-title">课程结束，支持仍在</h2>
+    <span class="chapter-en">The Aftermath</span>
+  </div>
+  <p class="chapter-lead">两天的研修班结束了，但配套支持刚刚开始——作品要回岗兑现，做法要沉淀成资产。</p>
+
+  <div class="growth">
+    <div class="stat-tiles reveal">
+      <div class="tile"><b>1 个月</b><span>课程专属智能体开放</span></div>
+      <div class="tile"><b>长期</b><span>学习社群支持</span></div>
+      <div class="tile"><b>4 类</b><span>可带走的成果</span></div>
+      <div class="tile"><b>37 位</b><span>同行者</span></div>
+    </div>
+  </div>
+  <p class="growth-note reveal">「把做法写成规则，让一次成功沉淀为可以反复调用的工作流」——这句课堂结语，课后才开始兑现。</p>
+</section>
+
+<!-- ================= 结语 ================= -->
+<section class="coda reveal">
+  <p class="big">带着真任务来<span class="r"> → </span>当场做出来<span class="r"> → </span>写成规则带走。</p>
+  <p class="sub">你的下一份工作文件，也可以是一条生产线。</p>
+</section>
+
+<footer>
+  <div class="f-grid">
+    <div>
+      <div><b style="color:var(--ink)">两天研修 · 方法之城</b> · 第2期研修班回顾</div>
+      <div>本页由「知识之城」模板换装而成——换文案、不换骨架，隐喻映射法的又一次示范：城还是那座城，讲的是研修班。</div>
+    </div>
+    <div style="text-align:right">
+      <div>生成日期 <span id="gen-date">2026-09-19</span></div>
+      <div>页面由 Claude Code 生成；照片出自研修班现场，内容整理自「氛围编程实验室」公众号原文。</div>
+    </div>
+  </div>
+</footer>
+
+</main>
+
+<!--KB:DATA-->
+<script type="application/json" id="kb-data">
+ {
+ "generated": "2026-09-20",
+ "kb_root": "研修班",
+ "totals": {
+  "articles": 37,
+  "images": 4,
+  "videos": 0,
+  "by_month": [],
+  "cumulative": []
+ },
+ "layers": [
+  {
+   "id": "origin",
+   "line": "学员线",
+   "en": "LEARNERS",
+   "color": "#C48A84",
+   "summary": "学员带着各自领域的真实任务进课堂——课程以真问题为原料。",
+   "articles": [
+    {
+     "dir": "edu",
+     "title": "教育一线",
+     "author": "一线教师",
+     "note": "教研设计、教务表格、课堂互动——教学游戏与数据课的直接受益者。",
+     "date": "2026-09-19"
+    },
+    {
+     "dir": "sci",
+     "title": "科研院所",
+     "author": "科研人员",
+     "note": "数据整理、论文配图、汇报材料——第二天的综合实战里有现成场景。",
+     "date": "2026-09-19"
+    },
+    {
+     "dir": "gov",
+     "title": "政务部门",
+     "author": "政务工作者",
+     "note": "公文写作、材料汇总——多智能体协作的真实练习对象。",
+     "date": "2026-09-19"
+    },
+    {
+     "dir": "biz",
+     "title": "企业团队",
+     "author": "企业学员",
+     "note": "市场素材、内容生产——课程里「图片生产线」的行业同款。",
+     "date": "2026-09-19"
+    }
+   ]
+  },
+  {
+   "id": "siblings",
+   "line": "课程线",
+   "en": "CURRICULUM",
+   "color": "#7FA8BC",
+   "summary": "三段进阶：第一天学方法、练数据，第二天综合实战。",
+   "articles": [
+    {
+     "dir": "c0",
+     "title": "学习科学基础",
+     "author": "刘雨昕 导论",
+     "note": "从人工智能与学习科学的基础讲起，理解氛围编程的核心理念与工作方式。",
+     "date": "2026-09-19"
+    },
+    {
+     "dir": "c1",
+     "title": "教学游戏设计",
+     "author": "吴腾腾 专题",
+     "note": "学习科学 × HTML，「讨论—规划—执行—迭代」四步协作法当场走通。",
+     "date": "2026-09-19"
+    },
+    {
+     "dir": "c2",
+     "title": "数据分析实战",
+     "author": "第一天下午",
+     "note": "WorkBuddy 完成清洗、分析与交互式图表，工作中的表格就是题面。",
+     "date": "2026-09-19"
+    },
+    {
+     "dir": "c3",
+     "title": "多智能体综合实战",
+     "author": "第二天全天",
+     "note": "文章下载、PPT、公文、素材生产——多个智能体各司其职协同完成。",
+     "date": "2026-09-20"
+    },
+    {
+     "dir": "c4",
+     "title": "展示与沉淀",
+     "author": "第二天尾声",
+     "note": "作品互评与点评，把做法写成可复用的规则，汇总数字化学习成果。",
+     "date": "2026-09-20"
+    }
+   ]
+  },
+  {
+   "id": "method",
+   "line": "方法线",
+   "en": "THREE PATHS",
+   "color": "#7FA186",
+   "summary": "研修班教的三条路，每条都当堂走了一遍。",
+   "articles": [
+    {
+     "dir": "m1",
+     "title": "自己写，反复试",
+     "author": "路 ①",
+     "note": "路①：每一轮只改一处，才知道是哪句话起了作用——学员迭代教学游戏时的日常。",
+     "date": "2026-09-19"
+    },
+    {
+     "dir": "m2",
+     "title": "照模板改",
+     "author": "路 ②",
+     "note": "路②：先拆「固定的一半」和「要换的一半」——要素表法在数据课与海报课反复出现。",
+     "date": "2026-09-19"
+    },
+    {
+     "dir": "m3",
+     "title": "从成品反推",
+     "author": "路 ③",
+     "note": "路③：反推范本与成品的差距，差距就是新知——海报现场换城市要素，当场出新图。",
+     "date": "2026-09-20"
+    }
+   ]
+  },
+  {
+   "id": "industry",
+   "line": "成果线",
+   "en": "OUTPUTS",
+   "color": "#C2A36B",
+   "summary": "四类成果都可带走：可运行、可展示、可复用。",
+   "articles": [
+    {
+     "dir": "o1",
+     "title": "教学游戏",
+     "author": "可运行",
+     "note": "以 HTML 形式交付，目标落位、学生愿意玩。",
+     "date": "2026-09-20"
+    },
+    {
+     "dir": "o2",
+     "title": "交互图表",
+     "author": "可展示",
+     "note": "教务表格现场变动态框架，效率当场提高。",
+     "date": "2026-09-20"
+    },
+    {
+     "dir": "o3",
+     "title": "品牌海报",
+     "author": "可使用",
+     "note": "自己的机构、自己的要素，现场生成现场迭代。",
+     "date": "2026-09-20"
+    },
+    {
+     "dir": "o4",
+     "title": "SKILL 工作流",
+     "author": "可复用",
+     "note": "把做法写成规则，一次成功反复调用。",
+     "date": "2026-09-20"
+    }
+   ]
+  },
+  {
+   "id": "svg",
+   "line": "工具线",
+   "en": "TOOLS",
+   "color": "#3D5A78",
+   "summary": "对话式、智能体、工程化——三种形态依次上手，按任务切换。",
+   "articles": [
+    {
+     "dir": "t1",
+     "title": "对话式工具",
+     "author": "Chat",
+     "note": "从会聊天到会提问——第一课的起点。",
+     "date": "2026-09-19"
+    },
+    {
+     "dir": "t2",
+     "title": "智能体工具",
+     "author": "Agent",
+     "note": "WorkBuddy 等：说清要什么，剩下交给它。",
+     "date": "2026-09-19"
+    },
+    {
+     "dir": "t3",
+     "title": "工程化 Coding Agent",
+     "author": "Claude Code",
+     "note": "课程主线工具：结构清楚的任务交给它批量完成。",
+     "date": "2026-09-20"
+    }
+   ]
+  },
+  {
+   "id": "mirror",
+   "line": "延续线",
+   "en": "AFTERWARDS",
+   "color": "#8CA0AA",
+   "summary": "虚线：课堂之后，支持仍在。",
+   "articles": [
+    {
+     "dir": "a1",
+     "title": "课程智能体开放",
+     "author": "1 个月",
+     "note": "结课不结账——专属智能体继续可用。",
+     "date": "2026-09-21"
+    },
+    {
+     "dir": "a2",
+     "title": "长期学习社群",
+     "author": "社群",
+     "note": "项目推进与成果复盘，有人同行。",
+     "date": "2026-09-21"
+    },
+    {
+     "dir": "a3",
+     "title": "回岗真实任务",
+     "author": "每一天",
+     "note": "课堂结语：人机协作才刚刚开始。",
+     "date": "2026-09-21"
+    }
+   ]
+  }
+ ]
+}
+</script>
+<!--/KB:DATA-->
+
+<script>
+(function(){
+"use strict";
+var DATA = JSON.parse(document.getElementById("kb-data").textContent);
+var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+/* ---------- 数字绑定 ---------- */
+var t = DATA.totals;
+function setNum(cls, val, fmt){
+  document.querySelectorAll("." + cls).forEach(function(el){ el.textContent = fmt ? fmt(val) : val; });
+}
+setNum("n-articles", t.articles);
+setNum("n-images", t.images, function(v){ return v.toLocaleString("en-US"); });
+setNum("n-videos", t.videos);
+if (t.by_month.length >= 3){
+  var days = 0, m0 = t.by_month[0].month, mN = t.by_month[t.by_month.length-1].month;
+  var a = new Date(+m0.slice(0,4), +m0.slice(5,7)-1, 1), b = new Date(+mN.slice(0,4), +mN.slice(5,7), 0);
+  days = Math.round((b-a)/86400000);
+  setNum("n-daily", "≈ " + (t.articles/days).toFixed(1));
+}
+var g = document.getElementById("gen-date");
+if (g && DATA.generated) g.textContent = DATA.generated;
+
+/* ---------- 进场动画（?static=1 时全量直显，供截图/长图快照用） ---------- */
+var forceStatic = /[?&]static=1/.test(location.search);
+var reveals = document.querySelectorAll(".reveal");
+if (!forceStatic && "IntersectionObserver" in window && !reduceMotion){
+  var io = new IntersectionObserver(function(es){
+    es.forEach(function(e){ if (e.isIntersecting){ e.target.classList.add("in"); io.unobserve(e.target); } });
+  }, {threshold:.12});
+  reveals.forEach(function(el){ io.observe(el); });
+  var pl = document.getElementById("pipelines");
+  var io2 = new IntersectionObserver(function(es){
+    es.forEach(function(e){ if (e.isIntersecting){ pl.classList.add("armed"); io2.disconnect(); } });
+  }, {threshold:.3});
+  io2.observe(pl);
+  var steps = document.querySelectorAll(".pl-step");
+  steps.forEach(function(s,i){ s.style.transitionDelay = (i%5)*0.12 + "s"; });
+}else{
+  reveals.forEach(function(el){ el.classList.add("in"); });
+  document.getElementById("pipelines").classList.add("armed");
+}
+
+/* ---------- 地铁图 ---------- */
+/* 线路走向是母版（几何），站点由数据落位——文件夹变了，重跑脚本即可 */
+var ROUTES = {
+  origin:   "M560,300 L560,256 L622,212",
+  siblings: "M560,300 L506,300 L506,266 L430,212 L430,152 L338,152 L338,114 L246,114",
+  method:   "M560,300 L482,300 L482,364 L402,422 L402,478 L322,478",
+  industry: "M560,300 L632,352 L632,391 L712,443 L824,443",
+  svg:      "M560,300 L622,259 L702,259 L764,212",
+  mirror:   "M560,300 L560,349 L516,382 L516,422"
+};
+var NS = "http://www.w3.org/2000/svg";
+function el(name, attrs, parent){
+  var e = document.createElementNS(NS, name);
+  for (var k in attrs) e.setAttribute(k, attrs[k]);
+  if (parent) parent.appendChild(e);
+  return e;
+}
+var mount = document.getElementById("metro-mount");
+var svg = el("svg", {viewBox:"0 0 1120 540", role:"img", "aria-label":"研修班六条线关系地铁图"}, mount);
+
+/* 底：淡格网（极淡，站台感） */
+var grid = el("g", {opacity:".5"}, svg);
+for (var gx=80; gx<1120; gx+=120){ el("line",{x1:gx,y1:40,x2:gx,y2:660,stroke:"#DCE7EE","stroke-width":"1"},grid); }
+for (var gy=70; gy<520; gy+=75){ el("line",{x1:40,y1:gy,x2:1080,y2:gy,stroke:"#DCE7EE","stroke-width":"1"},grid); }
+
+/* 水系装饰：左上一条河 */
+el("path",{d:"M40,92 q60,18 120,0 q60,-18 120,0",fill:"none",stroke:"#C7D9E4","stroke-width":"10",opacity:".55","stroke-linecap":"round"},svg);
+
+var tip = document.getElementById("station-tip");
+var detail = document.getElementById("station-detail");
+var layerById = {};
+DATA.layers.forEach(function(l){ layerById[l.id] = l; });
+
+DATA.layers.forEach(function(layer, li){
+  var d = ROUTES[layer.id];
+  var path = el("path", {
+    d: d, fill:"none", stroke: layer.color, "stroke-width": 5,
+    "stroke-linecap":"round", "stroke-linejoin":"round",
+    "stroke-dasharray": layer.id==="mirror" ? "12 7" : "none",
+    opacity:".92"
+  }, svg);
+  var L = path.getTotalLength();
+  var n = layer.articles.length;
+  /* 线路名标签：放在终点外一点 */
+  var end = path.getPointAtLength(L);
+  var near = path.getPointAtLength(L-6);
+  var lbl = el("text",{
+    x: end.x + (end.x-near.x>=0?10:-10), y: end.y + 4,
+    "text-anchor": end.x-near.x>=0 ? "start":"end",
+    fill: layer.color, "font-size":"13", "font-weight":"600",
+    "letter-spacing":"2", "font-family":"PingFang SC",
+    "paint-order":"stroke", stroke:"#F7F2E9", "stroke-width":"4", "stroke-linejoin":"round"
+  }, svg);
+  lbl.textContent = layer.line;
+  var lblEn = el("text",{
+    x: lbl.getAttribute("x"), y: end.y + 22,
+    "text-anchor": lbl.getAttribute("text-anchor"),
+    fill:"#8CA0AA", "font-size":"9", "letter-spacing":"2.5", "font-family":"PingFang SC",
+    "paint-order":"stroke", stroke:"#F7F2E9", "stroke-width":"3", "stroke-linejoin":"round"
+  }, svg);
+  lblEn.textContent = layer.en;
+
+  layer.articles.forEach(function(a, ai){
+    var frac = n===1 ? .8 : (0.12 + 0.76*(ai/(n-1)));
+    var pt = path.getPointAtLength(L*frac);
+    var gEl = el("g", {"class":"station", tabindex:"0", role:"button"}, svg);
+    el("circle",{cx:pt.x, cy:pt.y, r:7.5, fill:"#F7F2E9", stroke:layer.color, "stroke-width":"3","class":"dot"},gEl);
+    var anchor = (ai%2===0) ? "middle" : "middle";
+    var dy = (ai%2===0) ? -14 : 22;
+    var txt = el("text",{x:pt.x, y:pt.y+dy, "text-anchor":anchor},gEl);
+    txt.textContent = a.title.length>9 ? a.title.slice(0,9)+"…" : a.title;
+    function show(){
+      tip.style.display="block";
+      tip.innerHTML = "<b>"+a.title+"</b>"+(a.author?(" · "+a.author):"");
+    }
+    gEl.addEventListener("mouseenter", function(ev){
+      show();
+      var r = mount.getBoundingClientRect();
+      tip.style.left = Math.min(ev.clientX-r.left+14, r.width-260)+"px";
+      tip.style.top  = (ev.clientY-r.top-46)+"px";
+    });
+    gEl.addEventListener("mousemove", function(ev){
+      var r = mount.getBoundingClientRect();
+      tip.style.left = Math.min(ev.clientX-r.left+14, r.width-260)+"px";
+      tip.style.top  = (ev.clientY-r.top-46)+"px";
+    });
+    gEl.addEventListener("mouseleave", function(){ tip.style.display="none"; });
+    function open(){
+      var meta = [];
+      if (a.date) meta.push(a.date + " 发布");
+      if (a.fetched_chars) meta.push("入库基准 " + a.fetched_chars + " 字 · " + (a.fetched_imgs||0) + " 图");
+      meta.push(a.local ? "本库文件 · " + a.dir : "已归档 · " + a.dir);
+      detail.innerHTML =
+        '<div class="sd-line"><span class="sd-dot" style="background:'+layer.color+'"></span>'
+        + layer.line + " · " + layer.en + '　<span style="color:#8CA0AA">'+layer.summary+'</span></div>'
+        + "<h3>"+a.title+"</h3><p>"+a.note+"</p>"
+        + '<div class="sd-meta">'+ meta.map(function(m){return "<span>"+m+"</span>";}).join("")
+        + (a.url ? '<span><a href="'+a.url+'" target="_blank" rel="noopener">原文 ↗</a></span>' : "")
+        + "</div>";
+    }
+    gEl.addEventListener("click", open);
+    gEl.addEventListener("keydown", function(e){ if(e.key==="Enter"||e.key===" "){ e.preventDefault(); open(); }});
+  });
+});
+
+/* 中央换乘站 */
+(function(){
+  var cx=560, cy=300;
+  var g0 = el("g",{},svg);
+  el("circle",{cx:cx,cy:cy,r:26,fill:"#F7F2E9",stroke:"#33454F","stroke-width":"2.5"},g0);
+  el("circle",{cx:cx,cy:cy,r:5,fill:"#33454F"},g0);
+  var t1 = el("text",{x:cx,y:cy-36,"text-anchor":"middle",fill:"#33454F","font-size":"15","font-weight":"700","font-family":"Songti SC","letter-spacing":"2"},g0);
+  t1.textContent = "两天研修";
+  var t2 = el("text",{x:cx,y:cy+48,"text-anchor":"middle",fill:"#8CA0AA","font-size":"9.5","letter-spacing":"3","font-family":"PingFang SC"},g0);
+  t2.textContent = "INTERCHANGE · 第2期研修班";
+})();
+
+/* 图例 */
+var legend = document.getElementById("metro-legend");
+DATA.layers.forEach(function(l){
+  var d = document.createElement("span");
+  d.className = "lg";
+  d.innerHTML = '<span class="swatch" style="background:'+l.color+'"></span>' + l.line + "　" + l.en + " · " + l.articles.length + " 站";
+  legend.appendChild(d);
+});
+
+/* ---------- 线路一览信息板(静态图里也可见) ---------- */
+(function(){
+  var box = document.getElementById("lines-index");
+  if (!box) return;
+  DATA.layers.forEach(function(l){
+    var c = document.createElement("div");
+    c.className = "li-card";
+    var sts = l.articles.map(function(a){
+      return '<div class="li-st"><b>'+a.title+'</b><span>'+(a.note.replace(/^路[①②③]：/,"").slice(0,26))+'</span></div>';
+    }).join("");
+    c.innerHTML = '<div class="li-head"><span class="li-dot" style="background:'+l.color+'"></span>'
+      + '<span class="li-name">'+l.line+'</span><span class="li-en">'+l.en+' · '+l.articles.length+' 站</span></div>'
+      + '<div class="li-sum">'+l.summary+'</div>'
+      + '<div class="li-stations">'+sts+'</div>';
+    box.appendChild(c);
+  });
+})();
+
+/* ---------- 三条路内容 ---------- */
+var methodLayer = DATA.layers.filter(function(l){return l.id==="method";})[0] || {articles:[]};
+var buckets = {"①":[], "②":[], "③":[]};
+methodLayer.articles.forEach(function(a){
+  var m = a.note.match(/路([①②③])/);
+  if (m) buckets[m[1]].push(a);
+});
+[[ "①","path1-list"],["②","path2-list"],["③","path3-list"]].forEach(function(pair){
+  var ul = document.getElementById(pair[1]);
+  buckets[pair[0]].forEach(function(a){
+    var li = document.createElement("li");
+    li.innerHTML = "<b>"+a.title+"</b>"+a.note.replace(/^路[①②③][^：]*：/,"");
+    ul.appendChild(li);
+  });
+});
+
+/* ---------- 风格墙 ---------- */
+var vols = ["vol06","vol07","vol08","vol09","vol10","vol11","vol12","vol17","vol18","vol19","vol25","vol26","vol28","vol030"];
+var names = {"vol06":"VOL06 丙烯平涂","vol07":"VOL07 手账手绘","vol08":"VOL08 纪念碑谷","vol09":"VOL09 单色网点","vol10":"VOL10 黑白蜡笔","vol11":"VOL11 线条灵魂","vol12":"VOL12 混乱几何","vol17":"VOL17 童趣稚拙","vol18":"VOL18 剪纸纸雕","vol19":"VOL19 复古扁平","vol25":"VOL25 格式塔正负形","vol26":"VOL26 极简浅浮雕","vol28":"VOL28 微缩纸模型","vol030":"VOL30 植物重构拼贴"};
+var wall = document.getElementById("vol-wall");
+if (!wall) vols = [];
+vols.forEach(function(v){
+  var c = document.createElement("div");
+  c.className = "vol-cell";
+  c.innerHTML = '<img src="assets/vol/'+v+'.jpg" alt="'+names[v]+'风格示例" loading="lazy"><span>'+names[v]+'</span>';
+  wall.appendChild(c);
+});
+
+/* ---------- 增长柱状图 ---------- */
+(function(){
+  var svgC = document.getElementById("growth-chart");
+if (!svgC || !t.by_month.length) return;
+  var W=640, H=320, padL=54, padR=16, padT=44, padB=64;
+  var months = t.by_month, cum = t.cumulative;
+  var max = Math.max.apply(null, months.map(function(m){return m.count;}));
+  var nice = Math.ceil(max/50)*50;
+  var iw = W-padL-padR, ih = H-padT-padB;
+  /* 轴 */
+  el("line",{x1:padL,y1:H-padB,x2:W-padR,y2:H-padB,stroke:"#33454F","stroke-width":"1.5"},svgC);
+  for (var i=0;i<=4;i++){
+    var yv = nice*i/4, y = H-padB - ih*i/4;
+    el("line",{x1:padL,y1:y,x2:W-padR,y2:y,stroke:"#33454F",opacity:".12","stroke-width":"1"},svgC);
+    var yt = el("text",{x:padL-10,y:y+4,"text-anchor":"end",fill:"#8CA0AA","font-size":"11","font-family":"PingFang SC"},svgC);
+    yt.textContent = yv;
+  }
+  var bw = Math.min(64, iw/months.length*0.42);
+  var tipC = document.getElementById("chart-tip");
+  months.forEach(function(m,i){
+    var x = padL + iw*(i+0.5)/months.length;
+    var h = ih*m.count/nice;
+    var y = H-padB-h;
+    var r = el("rect",{x:x-bw/2,y:y,width:bw,height:h,rx:4,fill:"#7FA8BC",stroke:"#33454F","stroke-width":"1.2"},svgC);
+    var direct = el("text",{x:x,y:y-10,"text-anchor":"middle",fill:"#33454F","font-size":"14","font-weight":"700","font-family":"Songti SC"},svgC);
+    direct.textContent = m.count;
+    var mx = el("text",{x:x,y:H-padB+22,"text-anchor":"middle",fill:"#5C7078","font-size":"12","font-family":"PingFang SC"},svgC);
+    mx.textContent = m.month.replace("-",".");
+    var cc = el("text",{x:x,y:H-padB+40,"text-anchor":"middle",fill:"#8CA0AA","font-size":"10.5","font-family":"PingFang SC"},svgC);
+    cc.textContent = "累计 "+cum[i];
+    r.addEventListener("mouseenter", function(ev){
+      tipC.style.display="block";
+      tipC.textContent = m.month.replace("-","年")+"月 · 入库 "+m.count+" 篇（累计 "+cum[i]+" 篇）";
+      var rect = svgC.getBoundingClientRect();
+      tipC.style.left = (ev.clientX-rect.left) + "px";
+      tipC.style.top  = (ev.clientY-rect.top-34) + "px";
+    });
+    r.addEventListener("mousemove", function(ev){
+      var rect = svgC.getBoundingClientRect();
+      tipC.style.left = (ev.clientX-rect.left) + "px";
+      tipC.style.top  = (ev.clientY-rect.top-34) + "px";
+    });
+    r.addEventListener("mouseleave", function(){ tipC.style.display="none"; });
+  });
+  var cap = el("text",{x:padL,y:22,fill:"#5C7078","font-size":"12.5","font-family":"PingFang SC","letter-spacing":"1"},svgC);
+  cap.textContent = "按月入库文章数（篇）";
+})();
+})();
+</script>
+</body>
+</html>

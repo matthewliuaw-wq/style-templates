@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>两日总结 · 一条内容生产线（长图版）</title>
+<style>
+  :root{
+    --paper:#F5EFE0;
+    --navy:#1E4DBC;
+    --brick:#C8553D;
+    --ink:#1A1A1A;
+    --ink-soft:rgba(26,26,26,.55);
+    --rule:rgba(26,26,26,.25);
+  }
+  *{margin:0;padding:0;box-sizing:border-box;border-radius:0!important;}
+  html,body{width:1080px;background-color:var(--paper);}
+  body{
+    font-family:'PingFang SC','Microsoft YaHei','Hiragino Sans GB',sans-serif;
+    color:var(--ink);
+    background-image:radial-gradient(rgba(26,26,26,.055) 1px,transparent 1.4px);
+    background-size:9px 9px;
+    overflow-x:hidden;
+  }
+  img{display:block;}
+
+  /* ---------- zine 基础装置 ---------- */
+  .mono{font-family:'Courier New','Menlo',monospace;letter-spacing:.14em;}
+  .display{font-family:'Arial Black','PingFang SC','Microsoft YaHei',sans-serif;font-weight:900;}
+  .misreg-navy{color:var(--navy);text-shadow:5px 4px 0 rgba(200,85,61,.82);}
+  .misreg-brick{color:var(--brick);text-shadow:5px 4px 0 rgba(30,77,188,.75);}
+
+  /* 色层错位硬块（非投影：实色、无模糊） */
+  .plate{position:relative;isolation:isolate;background:var(--paper);border:3px solid var(--ink);}
+  .plate::before{content:'';position:absolute;left:0;top:0;width:100%;height:100%;
+    transform:translate(8px,8px);z-index:-1;}
+  .plate-navy::before{background:var(--navy);}
+  .plate-brick::before{background:var(--brick);}
+
+  .dots{background-image:radial-gradient(rgba(26,26,26,.16) 1.1px,transparent 1.5px);
+    background-size:7px 7px;}
+
+  /* 专色 duotone：墨层为底，灰度图 screen，纸色 multiply 收尾 */
+  .duo{position:relative;isolation:isolate;overflow:hidden;border:3px solid var(--ink);background:var(--paper);}
+  .duo img{width:100%;height:100%;object-fit:cover;
+    filter:contrast(1.06) saturate(1.05);}
+  .duo::after{display:none;}
+  .duo-brick{background:var(--paper);}
+
+  /* 屏与分割 */
+  section{position:relative;padding:88px 72px 96px;}
+  .cut{border-top:3px dashed var(--rule);position:relative;height:0;}
+  .cut span{position:absolute;left:72px;top:-21px;background:var(--paper);padding:0 14px;
+    font-size:24px;color:var(--ink-soft);}
+  .folio{display:flex;justify-content:space-between;align-items:baseline;
+    font-size:25px;color:var(--ink-soft);margin-bottom:54px;}
+  .folio b{color:var(--ink);font-size:28px;}
+
+  .act-tag{display:inline-block;background:var(--navy);color:var(--paper);
+    padding:10px 26px;font-size:30px;letter-spacing:.3em;margin-bottom:26px;}
+  .act-tag.brick{background:var(--brick);}
+  h2.act-head{font-size:76px;line-height:1.18;letter-spacing:.01em;margin-bottom:34px;}
+  p.body{font-size:31px;line-height:1.72;}
+  .body b,.ask-note b,.end-quote b{font-weight:700;
+    text-decoration:underline;text-decoration-color:rgba(200,85,61,.6);
+    text-decoration-thickness:7px;text-underline-offset:11px;}
+  .caption{font-size:24px;color:var(--ink-soft);margin-top:18px;letter-spacing:.1em;}
+
+  .chip{display:inline-block;border:2.5px solid var(--ink);padding:8px 20px;
+    font-size:27px;margin:0 12px 14px 0;background:var(--paper);}
+
+  /* ---------- 封面 ---------- */
+  .cover{padding:64px 72px 88px;}
+  .cover-mast{display:flex;justify-content:space-between;font-size:25px;
+    color:var(--ink);border-bottom:3px solid var(--ink);padding-bottom:18px;}
+  .cover-block{margin-top:92px;position:relative;}
+  .cover-flow{font-size:66px;line-height:1.42;letter-spacing:.02em;}
+  .cover-line{margin-top:34px;font-size:76px;line-height:1.22;letter-spacing:0;}
+  .cover-sub{margin-top:44px;font-size:31px;color:var(--ink);letter-spacing:.22em;
+    border-left:12px solid var(--brick);padding-left:26px;}
+  .nums{margin-top:80px;border-top:3px solid var(--ink);border-bottom:3px solid var(--ink);}
+  .nums .row{display:flex;align-items:baseline;gap:36px;padding:26px 0;}
+  .nums .row+.row{border-top:3px solid var(--ink);}
+  .nums .n{font-size:150px;line-height:1;letter-spacing:-.02em;white-space:nowrap;}
+  .nums .l{font-size:33px;letter-spacing:.3em;}
+  .nums .en{margin-left:auto;font-size:24px;color:var(--ink-soft);letter-spacing:.2em;}
+  .cover-foot{margin-top:60px;display:flex;justify-content:space-between;
+    font-size:23px;letter-spacing:.08em;color:var(--ink-soft);}
+  .cover-seal{position:absolute;right:6px;top:-34px;width:190px;height:190px;
+    border:3px solid var(--brick);transform:rotate(6deg);display:flex;
+    align-items:center;justify-content:center;text-align:center;
+    font-size:33px;line-height:1.4;color:var(--brick);letter-spacing:.2em;
+    font-weight:900;}
+
+  /* ---------- 设问屏 ---------- */
+  .ask-356{font-size:330px;line-height:.95;letter-spacing:-.03em;margin:30px 0 8px;}
+  .ask-q{font-size:58px;line-height:1.5;margin-top:36px;}
+  .ask-a{display:inline-block;margin-top:52px;background:var(--brick);color:var(--paper);
+    font-size:52px;padding:20px 36px;letter-spacing:.14em;font-weight:900;}
+  .ask-note{margin-top:64px;font-size:31px;line-height:1.8;}
+
+  /* ---------- 幕内图文 ---------- */
+  .grid2{display:flex;gap:44px;}
+  .grid2>div{flex:1;min-width:0;}
+  .fig-label{font-size:25px;letter-spacing:.16em;color:var(--ink);
+    border-top:3px solid var(--ink);padding-top:14px;margin-top:16px;
+    display:flex;justify-content:space-between;}
+  .arrow-mid{flex:0 0 76px;display:flex;align-items:center;justify-content:center;
+    font-size:52px;color:var(--brick);font-weight:900;}
+
+  .steps{margin-top:10px;}
+  .steps>div{display:flex;align-items:flex-start;gap:26px;margin-bottom:30px;}
+  .steps .no{flex:0 0 74px;height:74px;border:3px solid var(--ink);
+    display:flex;align-items:center;justify-content:center;
+    font-size:40px;font-weight:900;}
+  .steps h3{font-size:37px;margin-bottom:8px;}
+  .steps p{font-size:29px;line-height:1.6;color:var(--ink);}
+
+  .formula{margin-top:56px;padding:52px 44px;text-align:center;}
+  .formula .f{font-size:54px;line-height:1.45;letter-spacing:.01em;}
+  .formula .dims{margin-top:34px;}
+  .formula .dims span{display:inline-block;border:2.5px solid var(--ink);
+    padding:10px 24px;font-size:29px;margin:0 14px 16px 0;}
+  .formula p{margin-top:20px;font-size:29px;line-height:1.7;text-align:left;}
+
+  .wall{display:grid;grid-template-columns:repeat(4,1fr);gap:26px;}
+  .wall .cell .duo{height:176px;}
+  .wall .cell:last-child .duo{height:176px;}
+  .wall-cap{font-size:24px;margin-top:12px;letter-spacing:.06em;line-height:1.4;}
+
+  table.idx{width:100%;border-collapse:collapse;margin-top:40px;}
+  table.idx th{background:var(--ink);color:var(--paper);font-size:27px;
+    padding:16px 18px;text-align:left;letter-spacing:.1em;font-weight:700;}
+  table.idx td{border:2.5px solid var(--ink);font-size:26px;padding:15px 18px;
+    line-height:1.45;vertical-align:top;background:var(--paper);}
+  table.idx td.c{text-align:center;white-space:nowrap;font-family:'Courier New','Menlo',monospace;}
+  table.idx tr td:first-child{font-weight:700;}
+
+  .end-line{font-size:64px;line-height:1.5;}
+  .end-quote{margin-top:46px;font-size:31px;line-height:1.8;}
+  .end-foot{margin-top:64px;border-top:3px solid var(--ink);padding-top:26px;
+    display:flex;justify-content:space-between;font-size:25px;color:var(--ink);}
+</style>
+</head>
+<body>
+
+<!-- ═══════════ P.01 封面 ═══════════ -->
+<section class="cover">
+  <div class="cover-mast mono">
+    <span>氛围编程实战研修班 · 第2期 · 活动回顾</span>
+    <span>ISSUE №02 · 2026.09.19–20</span>
+  </div>
+
+  <div class="cover-block">
+    <div class="cover-seal dots">两天<br>37人</div>
+    <div class="cover-flow display">
+      <span class="misreg-navy">用 AI 聊天</span> →<br>
+      用 AI 做事
+    </div>
+    <div class="cover-line display misreg-brick">一场真实的思维跃迁。</div>
+    <div class="cover-sub">零门槛 · 任务驱动 · 成果导向</div>
+  </div>
+
+  <div class="nums">
+    <div class="row">
+      <div class="n display" style="color:var(--navy)">2</div>
+      <div class="l">天集中实战</div>
+      <div class="en mono">DAYS</div>
+    </div>
+    <div class="row">
+      <div class="n display" style="color:var(--brick)">37</div>
+      <div class="l">位跨领域学员</div>
+      <div class="en mono">LEARNERS</div>
+    </div>
+    <div class="row">
+      <div class="n display" style="color:var(--ink)">4</div>
+      <div class="l">类真实成果</div>
+      <div class="en mono">OUTPUTS</div>
+    </div>
+  </div>
+
+  <div class="cover-foot mono">
+    <span>北京大学教育学院 · 氛围编程实验室</span>
+    <span>RISO NAVY + BRICK · ON CREAM PAPER</span>
+  </div>
+</section>
+
+<div class="cut"><span class="mono">✂ ─ ─ ─ P.02 设问 ─ ─ ─</span></div>
+
+<!-- ═══════════ P.02 设问 ═══════════ -->
+<section>
+  <div class="folio mono"><span><b>设问</b> · THE QUESTION</span><span>P.02 / 07</span></div>
+
+  <div class="ask-356 display misreg-navy">37</div>
+  <div class="ask-q display">「不写代码，真的能交付作品？」</div>
+  <div class="ask-a">两天后，他们做到了。</div>
+
+  <div class="ask-note">
+    来自教育、科研、政务与企业的 37 位学员——
+    <b>无需编程基础，全程用自然语言与 AI 协作，</b>
+    在真实任务中掌握人机协同的工作方法。
+  </div>
+</section>
+
+<div class="cut"><span class="mono">✂ ─ ─ ─ P.03 第一幕 ─ ─ ─</span></div>
+
+<!-- ═══════════ P.03 第一幕 学方法 ═══════════ -->
+<section>
+  <div class="folio mono"><span><b>ACT 1</b> · 学方法</span><span>P.03 / 07</span></div>
+
+  <div class="act-tag">第 一 幕 · 学 方 法</div>
+  <h2 class="act-head display misreg-navy">用学习科学<br>设计教学游戏</h2>
+
+  <p class="body">
+    第一天上午，刘雨昕老师从人工智能与学习科学的基础讲起，帮助学员理解氛围编程的
+    核心理念；吴腾腾老师带来「学习科学 × 用 HTML 设计教学游戏」专题——
+    <b>以 HTML 形式，把一个想法变成可运行的教育游戏。</b>
+  </p>
+
+  <div class="plate plate-navy" style="margin-top:52px;">
+    <div class="duo" style="height:560px;">
+      <img src="workshop-teacher-1.jpg" alt="教师在研修班授课">
+    </div>
+  </div>
+  <div class="fig-label mono"><span>从教学目标出发 · 逐步变成可运行的游戏</span><span>图 1-1</span></div>
+
+  <div class="formula plate plate-navy dots" style="margin-top:44px;">
+    <div class="f display">讨论 → 规划 → 执行 → <span style="color:var(--navy)">迭代</span></div>
+    <p style="text-align:center;margin-top:16px;">「做教学游戏不仅要考虑教学目标如何落位，也要让学生愿意参与其中。」——学员反馈</p>
+  </div>
+</section>
+
+<div class="cut"><span class="mono">✂ ─ ─ ─ P.04 第二幕 ─ ─ ─</span></div>
+
+<!-- ═══════════ P.04 第二幕 练数据 ═══════════ -->
+<section>
+  <div class="folio mono"><span><b>ACT 2</b> · 练数据</span><span>P.04 / 07</span></div>
+
+  <div class="act-tag brick">第 二 幕 · 练 数 据</div>
+  <h2 class="act-head display misreg-brick">一张表，<br>变成一张图</h2>
+
+  <p class="body">
+    第一天下午，学员使用 WorkBuddy 等 AI 工具完成<b>数据清洗、分析与交互式图表生成</b>。
+    工作中的表格、数据和重复任务，被带进课堂成为真实练习材料。
+  </p>
+
+  <div class="plate plate-brick" style="margin-top:52px;">
+    <div class="duo" style="height:560px;">
+      <img src="workshop-teacher-2.jpg" alt="教师讲解数据分析与可视化">
+    </div>
+  </div>
+  <div class="fig-label mono"><span>用自然语言驱动 · 清洗、分析、出图</span><span>图 2-1</span></div>
+
+  <div class="formula plate plate-brick dots" style="margin-top:44px;">
+    <div class="f display">表格 → 数据清洗 → <span style="color:var(--navy)">交互式图表</span></div>
+    <p style="text-align:center;margin-top:16px;">「在教务工作中设计框架，让表格动态更新，记录数据和提取数据的效率大大提高。」——现场反馈</p>
+  </div>
+</section>
+
+<div class="cut"><span class="mono">✂ ─ ─ ─ P.05 第三幕 ─ ─ ─</span></div>
+
+<!-- ═══════════ P.05 第三幕 出成果 ═══════════ -->
+<section>
+  <div class="folio mono"><span><b>ACT 3</b> · 出成果</span><span>P.05 / 07</span></div>
+
+  <div class="act-tag">第 三 幕 · 出 成 果</div>
+  <h2 class="act-head display misreg-navy">多个智能体，<br>一条流水线</h2>
+
+  <p class="body">
+    第二天进入综合实战：学员学习从数据采集到成果汇报的完整流程，尝试
+    <b>多智能体联合工作</b>——不同智能体各司其职，协同完成文章下载、PPT 制作、
+    公文写作和素材生产；最终汇总为一份数字化学习成果。
+  </p>
+
+  <div class="plate plate-navy" style="margin-top:52px;">
+    <div class="duo" style="height:560px;">
+      <img src="workshop-class.jpg" alt="研修班课堂现场">
+    </div>
+  </div>
+  <div class="fig-label mono"><span>真实任务进课堂 · 作品可运行可展示</span><span>图 3-1</span></div>
+
+  <div class="formula plate plate-navy dots" style="margin-top:44px;">
+    <div class="f display">把做法写成规则 → <span style="color:var(--navy)">可复用的工作流</span></div>
+  </div>
+
+  <div style="margin-top:40px;">
+    <span class="chip">教学游戏</span><span class="chip">数据分析</span><span class="chip">品牌海报</span>
+    <span class="chip">SKILL 工作流</span>
+  </div>
+</section>
+
+<div class="cut"><span class="mono">✂ ─ ─ ─ P.06 第四幕 ─ ─ ─</span></div>
+
+<!-- ═══════════ P.06 第四幕 学员说 ═══════════ -->
+<section>
+  <div class="folio mono"><span><b>ACT 4</b> · 学员说</span><span>P.06 / 07</span></div>
+
+  <div class="act-tag brick">第 四 幕 · 学 员 说</div>
+  <h2 class="act-head display misreg-brick">两天之后，<br>他们这样说</h2>
+
+  <div class="steps">
+    <div>
+      <div class="no display" style="color:var(--navy)">1</div>
+      <div><h3 class="display">关于课堂</h3>
+      <p>课程并非单纯理论讲解，实操占比很高，现场可以上手体验 AI 工具。</p></div>
+    </div>
+    <div>
+      <div class="no display" style="color:var(--brick)">2</div>
+      <div><h3 class="display">关于方法</h3>
+      <p>对 Prompt 有了新的理解：让 AI 思考解决方案，把大任务分割成小任务。</p></div>
+    </div>
+    <div>
+      <div class="no display" style="color:var(--ink)">3</div>
+      <div><h3 class="display">关于突破</h3>
+      <p>即使不用写代码，也可以做出各种小程序。</p></div>
+    </div>
+  </div>
+</section>
+
+<div class="cut"><span class="mono">✂ ─ ─ ─ P.07 收尾 ─ ─ ─</span></div>
+
+<!-- ═══════════ P.07 收尾 ═══════════ -->
+<section>
+  <div class="folio mono"><span><b>收尾</b> · THE LEAP</span><span>P.07 / 07</span></div>
+
+  <div class="end-line display misreg-navy">从「用 AI 聊天」，<br>走向用 AI<br>完成真实工作。</div>
+
+  <div class="end-quote">
+    两天，四课，37 位学员，4 类成果。<br>
+    课程结束，<b>但真实任务中的人机协作才刚刚开始。</b>
+  </div>
+
+  <div class="mono" style="margin-top:72px;font-size:27px;letter-spacing:.3em;
+    border-left:12px solid var(--navy);padding-left:24px;">
+    两 日 课 程 · 一 览</div>
+
+  <table class="idx">
+    <tr><th>时段</th><th>内容</th><th>成果</th></tr>
+    <tr><td>第一天上午</td><td>学习科学 × 教学游戏</td><td>可运行的教学游戏</td></tr>
+    <tr><td>第一天下午</td><td>数据分析与可视化</td><td>交互式图表</td></tr>
+    <tr><td>第二天</td><td>多智能体综合实战</td><td>数字化学习成果</td></tr>
+  </table>
+
+  <div class="end-foot mono">
+    <span>2026.09.19–20 · 北京大学教育学院 · 37 位学员</span>
+    <span>END OF ISSUE №02</span>
+  </div>
+</section>
+
+</body>
+</html>
