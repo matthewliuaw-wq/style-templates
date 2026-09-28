@@ -5,19 +5,31 @@
 原理:Chrome headless 用超高窗口(16000px)截图,再用 PIL 从底部向上找
 最后一行有内容的像素,裁掉下方空白。背景色按左上角像素判定。
 
-用法(必须用 ppt-master venv python,PIL 只装在那):
-  "/Users/liuyuxin/Documents/Vibe Coding项目/PPT制作练习/ppt-master/.venv/bin/python" 出全页图.py <源文件.html|.svg> [输出.png] [宽度,默认1080]
+用法(需 Python3 + Pillow + Chrome,首次: pip3 install Pillow):
+  python3 出全页图.py <源文件.html|.svg> [输出.png] [宽度,默认1080]
 
 例:
-  …/python 出全页图.py 03-zine-杂志风/模板示例.html 新主题.png 1080
+  python3 出全页图.py 03-zine-杂志风/模板示例.html 新主题.png 1080
 """
+import shutil
 import subprocess
 import sys
 from pathlib import Path
 
 from PIL import Image
 
-CHROME = "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
+# Chrome 逐个探测:macOS 常规路径优先,退到 PATH 里的 chrome/chromium(Linux/Windows)
+_CHROME_CANDIDATES = [
+    "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+    "/Applications/Chromium.app/Contents/MacOS/Chromium",
+    "/usr/bin/google-chrome",
+    "/usr/bin/chromium-browser",
+    "/usr/bin/chromium",
+]
+CHROME = next((c for c in _CHROME_CANDIDATES if Path(c).exists()), None) \
+    or shutil.which("google-chrome") or shutil.which("chrome") or shutil.which("chromium")
+if not CHROME:
+    sys.exit("找不到 Chrome/Chromium,请安装后重试(macOS 装Google Chrome,Linux 装 chromium)")
 MAX_H = 16000  # Chrome 单窗高度上限附近,再高会被钳制
 
 

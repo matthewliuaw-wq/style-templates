@@ -25,6 +25,12 @@ ls "/Applications/Google Chrome.app"      # 渲染依赖 Chrome,macOS 标配
 
 渲染命令一律 `python3`(普通 python3 均可,无需特殊环境)。
 
+**若 `pip3 install` 报 externally-managed / PEP 668**(Homebrew Python 常见):改用虚拟环境,之后所有渲染命令把 `python3` 换成 `.venv/bin/python`:
+
+```bash
+python3 -m venv .venv && .venv/bin/pip install Pillow markdown premailer
+```
+
 ---
 
 ## 你要做的事,分两种模式
