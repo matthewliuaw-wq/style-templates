@@ -3,6 +3,8 @@
 五套可直接填充的公众号视觉样式 + 一套导读文章写作模板 + 全部渲染工具链。
 **给 AI 用法和给人用法写在同一页:指令全部可复制粘贴,交给编程 agent(Claude Code / Codex 等)执行即可。**
 
+> **姊妹仓库**:文章内容怎么写(二创/报告解读双模式工作流)在 [media-article-composer](https://github.com/matthewliuaw-wq/media-article-composer)——本仓库管**版式**,那边管**内容**,配合使用。
+
 ---
 
 ## 快速接入(三选一)
