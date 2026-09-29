@@ -10,9 +10,10 @@ description: 公众号内容样式库(五套视觉样式+导读写作模板+渲�
 ## 第一步 · 环境自检(首次)
 
 ```bash
-pip3 install Pillow markdown premailer    # 报 externally-managed 则改用:python3 -m venv .venv && .venv/bin/pip install Pillow markdown premailer
-ls "/Applications/Google Chrome.app"      # 渲染依赖 Chrome
+pip3 install Pillow markdown premailer    # Windows 上是 pip / py -m pip;报 externally-managed 则改用 venv,见 README「环境自检」
 ```
+
+渲染依赖 Google Chrome(任意系统),`出全页图.py` 自动探测;渲染命令 `python3`(Windows 上 `python`)。
 
 ## 第二步 · 按决策表选样式
 

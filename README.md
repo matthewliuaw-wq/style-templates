@@ -29,13 +29,13 @@ git clone https://github.com/matthewliuaw-wq/style-templates ~/.claude/skills/st
 ## 环境自检(agent 首次使用先跑)
 
 ```bash
-pip3 install Pillow markdown premailer   # 三个包,一次性
-ls "/Applications/Google Chrome.app"      # 渲染依赖 Chrome,macOS 标配
+pip3 install Pillow markdown premailer   # 三个包,一次性(Windows 上命令是 pip 或 py -m pip)
 ```
 
-渲染命令一律 `python3`(普通 python3 均可,无需特殊环境)。
+- 渲染依赖 **Google Chrome**:Mac / Windows / Linux 均可,`出全页图.py` 自动探测各系统路径,装了就行
+- 渲染命令一律 `python3`(Windows 上是 `python`)
 
-**若 `pip3 install` 报 externally-managed / PEP 668**(Homebrew Python 常见):改用虚拟环境,之后所有渲染命令把 `python3` 换成 `.venv/bin/python`:
+**若 `pip3 install` 报 externally-managed / PEP 668**(Homebrew Python 常见):改用虚拟环境,之后所有渲染命令把 `python3` 换成 venv 里的 python(macOS/Linux 为 `.venv/bin/python`,Windows 为 `.venv\Scripts\python`):
 
 ```bash
 python3 -m venv .venv && .venv/bin/pip install Pillow markdown premailer
